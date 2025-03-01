@@ -18,6 +18,9 @@ router.post('/register', authenticationController.register,(req, res) => {
 router.post('/dashboard/votenow', pollController.dashboardVoteNow,(req,res) =>{
     return res.status(200).send('This is the working database vote now button');
 })
+router.post('/createPoll', pollController.createPoll, (req, res) => {
+  return res.status(200).send('This is the create poll page');
+});
 
 
 

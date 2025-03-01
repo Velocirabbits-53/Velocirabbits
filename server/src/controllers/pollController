@@ -1,0 +1,11 @@
+//Boilerplate imports------------------------------
+const router = require('../routers/routers');
+const express = require('express');
+
+const pollController = {}
+
+pollController.createPoll = (req, res, next) => {
+    next();
+};
+
+module.exports = pollController;
