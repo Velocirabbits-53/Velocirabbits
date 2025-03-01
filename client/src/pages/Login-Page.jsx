@@ -16,9 +16,10 @@ async  function loginRequest (){
       console.log("hello Anthony")
    const response = await fetch('http://localhost:3000/user/login', {
       method: 'POST',
-      headers: {'Content-Type': 'text/html'},
+      headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({username: username, password: password})
     });
+    console.log('The value of response.body is',response)
     if (response.ok){
       console.log('You are logged in')
       // the line below is currently refreshing the page. we can test a redirect with another page once we have one, but it currently isn't correct.
