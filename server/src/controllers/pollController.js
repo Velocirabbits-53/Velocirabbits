@@ -8,6 +8,10 @@ pollController.dashboardVoteNow = (req, res, next) => {
     next()
 }
 
+pollController.createPoll = (req, res, next) => {
+    next();
+};
+
 
 
 module.exports = pollController;
