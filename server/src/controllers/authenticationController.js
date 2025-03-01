@@ -10,6 +10,12 @@ authenticationController.login = (req, res, next) => {
   next();
 };
 
+authenticationController.register = (req, res, next) => {
+
+    next();
+  };
+
+
 
 
 module.exports = authenticationController;

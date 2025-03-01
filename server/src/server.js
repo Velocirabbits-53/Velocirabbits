@@ -15,6 +15,7 @@ app.use(express.urlencoded({ extended: true }));
 
 //Define the router handler------------------------------
 app.use('/user',router)
+
 //Boilerplate to check if the code is working correctly---------------------------
 app.get('/', (req, res) => {
   res.status(200).json('Hello from the backend');
