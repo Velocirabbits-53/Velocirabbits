@@ -2,6 +2,7 @@
 const express = require('express');
 const router = express.Router();
 const authenticationController = require('../controllers/authenticationController')
+const pollController = require ('../controllers/pollController')
 
 //post request to handle logins
 router.post('/login', authenticationController.login,(req, res) => {
@@ -12,6 +13,13 @@ router.post('/login', authenticationController.login,(req, res) => {
 router.post('/register', authenticationController.register,(req, res) => {
     return res.status(200).send('This is the working register submit button');
   });
+
+//post request to handle the database vote now button
+router.post('/dashboard/votenow', pollController.dashboardVoteNow,(req,res) =>{
+    return res.status(200).send('This is the working database vote now button');
+})
+
+
 
 //Export the router---------------------------
 module.exports = router;

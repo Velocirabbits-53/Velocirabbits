@@ -6,16 +6,11 @@ const express = require('express');
 const authenticationController = {};
 
 authenticationController.login = (req, res, next) => {
-
   next();
 };
 
 authenticationController.register = (req, res, next) => {
-
-    next();
-  };
-
-
-
+  next();
+};
 
 module.exports = authenticationController;
