@@ -3,7 +3,6 @@ import '../App.css';
 import { useNavigate } from 'react-router-dom';
 
 function Register() {
-
   // declare navigate to change webaddresses
   const navigate = useNavigate();
 
@@ -25,7 +24,9 @@ function Register() {
       });
       if (response.ok) {
         console.log('You are logged in');
-        navigate('/dashboard');
+        navigate('/dashboard', {
+          state: { username: `${username}` },
+        });
       } else {
         const error = await response.json();
         console.error('Registration failed', error);
