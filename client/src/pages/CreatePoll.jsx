@@ -1,11 +1,11 @@
 //* Create Poll page after user clicked Create a new Poll
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 // allows for user to be redirect to another page (back to Dashboard)
 import { useNavigate, useLocation } from 'react-router-dom';
 
 function CreatePoll() {
   const [pollName, setPollName] = useState('');
-
+  const pollOption = useRef();
   const navigate = useNavigate();
 
   // passing data into create poll
@@ -41,12 +41,24 @@ function CreatePoll() {
       console.error('Error:', error);
     }
   };
+// on buttonclick for the +, we will invoke the function to add option
+  const addOption = (input) =>{
+    // logic to create a new html element with the value of the input
+    //logic to clear the input field.
+
+  }
   return (
     <div>
       <h1>Name of Poll</h1>
       <input
-      //
+      type = "text" ref={pollOption}
       />
+      <button onClick={()=>addOption(pollOption)}>+</button>
+
+      {/* we want a "+" to add the options to the poll 
+      we want those to be contingent upon the "+" being pushed
+      we want each option in the poll to be unique<--- Harder, not sure how to do
+      we want each option in the poll to have a "-" so users can remove options -MS */}
       <p>Name of Topics:</p>
       {/* onClick handler calls addTopics, createPolltHandleButtonClick*/}
       {/* <button onClick={addTopicsHandleButtonClick}>+</button> */}
