@@ -4,12 +4,12 @@ const router = express.Router();
 const authenticationController = require('../controllers/authenticationController')
 const pollController = require ('../controllers/pollController')
 
-//post request to handle logins
+//post request to handle logins -> tested and works
 router.post('/login', authenticationController.login,(req, res) => {
   return res.status(200).send('This is the working login button');
 });
 
-//post request to handle logins
+//post request to handle logins -> tested and works
 router.post('/register', authenticationController.register,(req, res) => {
     return res.status(200).send('This is the working register submit button');
   });
@@ -20,7 +20,7 @@ router.post('/dashboard/votenow', pollController.dashboardVoteNow,(req,res) =>{
 })
 
 //post request to handle the create poll button
-router.post('/createPoll', pollController.createPoll, (req, res) => {
+router.post('/createpoll', pollController.createPoll, (req, res) => {
   return res.status(200).send('This is the create poll page');
 });
 

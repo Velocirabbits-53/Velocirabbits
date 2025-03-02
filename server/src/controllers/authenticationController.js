@@ -47,3 +47,4 @@ authenticationController.register = async (req, res, next) => {
 };
 
 module.exports = authenticationController;
+
