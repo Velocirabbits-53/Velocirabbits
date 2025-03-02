@@ -1,9 +1,13 @@
 //* Dashboard / Homepage
 import React, { useState, useEffect } from 'react';
 // need in order to direct user to another page (Create a New Poll page or Voting page)
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 function Dashboard() {
+  // the console.log is going twice
+  const location = useLocation();
+  const data = location.state;
+  console.log('test 💙:', data);
   // Using usestate to store the user’s response
   const [codeName, setCodeName] = useState(''); // codeName stores code typed (stores id)
   const [userName, setUserName] = useState('');

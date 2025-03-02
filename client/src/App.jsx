@@ -5,6 +5,7 @@ import CreatePoll from './pages/CreatePoll';
 import VoteNow from './pages/VotingPage';
 import LoginPage from './pages/Login-Page';
 import Confirmation from './pages/Confirmation';
+import Register from './pages/Register';
 
 // import PastPolls from './pages/PastPolls';
 
@@ -12,7 +13,9 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path='/' element={<Dashboard />} />
+        <Route path='/' element={<LoginPage/>}/>
+        <Route path='/register' element = {<Register/>} />
+        <Route path='/dashboard' element={<Dashboard />} />
         <Route path='/create-poll' element={<CreatePoll />} />
         <Route path='/vote-now' element={<VoteNow />} />
         <Route path='/login' element={<LoginPage />} />

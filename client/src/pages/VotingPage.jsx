@@ -17,7 +17,7 @@ function VotingPage() {
       {/* onClick handler calls submitHandleButtonClick */}
       {/* send data to db when a button is clicked */}
       <button onClick={submitHandleButtonClick}>Submit!</button>
-      <button onClick={() => navigate('/')}>Dashboard</button>
+      <button onClick={() => navigate('/dashboard')}>Dashboard</button>
     </div>
   );
 }

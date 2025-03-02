@@ -29,8 +29,9 @@ function CreatePoll() {
 
       // TODO user is to be redirected to Confirmation for Poll Created
       // if request is successful, redirect user to Confirmation.jsx
+      
       if (response.ok) {
-        navigate('/Confirmation.jsx');
+        navigate('/confirmation');
       } else {
         // otherwise log error
         console.error('Failed to Create Poll');
@@ -51,7 +52,7 @@ function CreatePoll() {
       {/* <button onClick={addTopicsHandleButtonClick}>+</button> */}
       <button onClick={createPollHandleButtonClick}>Create Poll</button>
       {/* onClick handler redirects user back to Dashboard */}
-      <button onClick={() => navigate('/')}> Dashboard </button>
+      <button onClick={() => navigate('/dashboard')}> Dashboard </button>
     </div>
   );
 }
