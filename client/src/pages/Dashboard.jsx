@@ -3,6 +3,9 @@ import React, { useState, useEffect } from 'react';
 // need in order to direct user to another page (Create a New Poll page or Voting page)
 import { useNavigate } from 'react-router-dom';
 
+// TODO- needs redirection from Login Page
+// TODO- needs to obtain username from Login Page
+
 function Dashboard() {
   // Using usestate to store the user’s response
   const [codeName, setCodeName] = useState(''); // codeName stores code typed (stores id)
@@ -20,21 +23,18 @@ function Dashboard() {
   }, []); // Runs once when the component loads
 
   // TODO Create New Poll Button
-  //
   const newPollHandleButtonClick = async () => {
     // redirect user to createPoll.jsx
     navigate('/create-poll', { state: { test: 'test' } });
   };
 
   // TODO Create Vote Now Button
-  //
   const voteNowHandleButtonClick = async () => {
     // redirect user to VotingPage.jsx
     navigate('/vote-now');
   };
 
   // TODO Create View Past Polls Button
-  //
   const viewPastPollsHandleButtonClick = async () => {
     // redirect user to past polls page
     // navigate('/PastPolls.jsx');
