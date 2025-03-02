@@ -1,36 +1,42 @@
 //* Dashboard / Homepage
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 // need in order to direct user to another page (Create a New Poll page or Voting page)
 import { useNavigate } from 'react-router-dom';
 
 function Dashboard() {
   // Using usestate to store the user’s response
   const [codeName, setCodeName] = useState(''); // codeName stores code typed (stores id)
-  const [userName, setUserName] = useState('Name');
+  const [userName, setUserName] = useState('');
 
   // function that redirects user to Create a New Poll page or Voting page
   const navigate = useNavigate();
 
+  // load user's name from login
+  useEffect(() => {
+    const storedName = localStorage.getItem('userName');
+    if (storedName) {
+      setUserName(storedName); // Set the user's name
+    }
+  }, []); // Runs once when the component loads
+
   // TODO Create New Poll Button
   //
   const newPollHandleButtonClick = async () => {
-    // TODO user is to be redirected to create Poll
     // redirect user to createPoll.jsx
-    navigate('/create-poll');
+    navigate('/create-poll', { state: { test: 'test' } });
   };
 
   // TODO Create Vote Now Button
   //
   const voteNowHandleButtonClick = async () => {
-    // TODO user is to be redirected to Voting Page
-    // redirect user to createPoll.jsx
+    // redirect user to VotingPage.jsx
     navigate('/vote-now');
   };
 
   // TODO Create View Past Polls Button
   //
   const viewPastPollsHandleButtonClick = async () => {
-    // TODO user is to be redirected to Past Data
+    // redirect user to past polls page
     // navigate('/PastPolls.jsx');
   };
 
@@ -40,7 +46,6 @@ function Dashboard() {
       <h1> DASHBOARD</h1>
       <h2>Hello, {userName}</h2>
       {/* onClick handler calls newPollHandleButtonClick */}
-      {/* sends data to db when a button is clicked */}
       <button onClick={newPollHandleButtonClick}>Create a New Poll</button>
       <p> Vote on a Poll</p>
       <div>
@@ -53,7 +58,6 @@ function Dashboard() {
           placeholder='Enter Code'
           className='text-input'
         />
-
         {/* onClick handler calls voteNowHandleButtonClick */}
         <button onClick={voteNowHandleButtonClick}>Vote Now!</button>
       </div>

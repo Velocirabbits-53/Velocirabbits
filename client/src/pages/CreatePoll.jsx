@@ -1,12 +1,18 @@
 //* Create Poll page after user clicked Create a new Poll
 import React, { useState } from 'react';
 // allows for user to be redirect to another page (back to Dashboard)
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 function CreatePoll() {
   const [pollName, setPollName] = useState('');
 
   const navigate = useNavigate();
+
+  // passing data into create poll
+  const location = useLocation();
+  const data = location.state;
+
+  console.log('test 💙:', data);
 
   // TODO Create Poll Button
   // function sends the user's response to the server when they click the button (Create Poll)

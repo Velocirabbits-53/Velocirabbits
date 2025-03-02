@@ -4,6 +4,7 @@ import Dashboard from './pages/Dashboard';
 import CreatePoll from './pages/CreatePoll';
 import VoteNow from './pages/VotingPage';
 import LoginPage from './pages/Login-Page';
+import Confirmation from './pages/Confirmation';
 
 // import PastPolls from './pages/PastPolls';
 
@@ -15,6 +16,7 @@ function App() {
         <Route path='/create-poll' element={<CreatePoll />} />
         <Route path='/vote-now' element={<VoteNow />} />
         <Route path='/login' element={<LoginPage />} />
+        <Route path='/confirmation' element={<Confirmation />} />
 
         {/* <Route path='/past-polls' element={<PastPolls />} /> */}
       </Routes>
