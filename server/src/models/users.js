@@ -15,15 +15,16 @@ const userSchema = new mongoose.Schema({
   password: { type: String, required: true },
 });
 
-const candidateSchema = new mongoose.Schema({
-  name: { type: String },
+const pollSchema = new mongoose.Schema({
+  pollName: { type: String },
   pollTopics: [{ pollTopic: { type: String } }],
+  code : { type: String }
 });
 
 const User = mongoose.model("User", userSchema);
-const Candidate = mongoose.model("Candidate", candidateSchema);
+const Poll = mongoose.model("Poll", pollSchema);
 
-module.exports = { User, Candidate };
+module.exports = { User, Poll };
 
 // import express from "express";
 // import mongoose from "mongoose";
