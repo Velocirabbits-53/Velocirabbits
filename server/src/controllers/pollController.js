@@ -72,21 +72,31 @@ pollController.createPoll = async (req, res, next) => {
 };
 
 pollController.pastPolls = async (req, res, next) => {
-  const username = req.params.username
-  const poll = await Poll.find({createdBy: username});
+  const username = req.params.username;
+  const poll = await Poll.find({ createdBy: username });
   // console.log('The value of the poll is', poll);
   res.locals.polls = poll;
   next();
 };
 
 pollController.votingPage = async (req, res, next) => {
-  const code = req.params.code;
-  // console.log('The value of the code is ',code)
-
-  const poll = await Poll.findOne({ code });
-  // console.log('The value of the poll is ', poll)
-  res.locals.poll = poll;
-  next();
+  try {
+    const code = req.params.code;
+    // console.log('The value of the code is ',code)
+    const poll = await Poll.findOne({ code });
+    // console.log('The value of the poll is ', poll)
+    if (!poll){
+      return res.status(400).json({ message: "Invalid Code" });
+    }
+    res.locals.poll = poll;
+    next();
+  } catch (err) {
+    return next({
+      log: 'You are receiving an error from the pollController.votingPage',
+      status: 500,
+      message: { err: 'This is a 500 error message' },
+    });
+  }
 };
 
 pollController.updatedVotes = async (req, res, next) => {
@@ -103,18 +113,18 @@ pollController.updatedVotes = async (req, res, next) => {
     return (poll.votes = Number(poll.votes) + votes[index]);
   });
   // console.log('The value of updatedPollTopics is', updatedPoll);
-  await Poll.findOneAndUpdate({ code: req.body.code },  updatedPoll );
+  await Poll.findOneAndUpdate({ code: req.body.code }, updatedPoll);
   next();
 };
 
 pollController.getResults = async (req, res, next) => {
   //get the data from database
   // console.log(req.params.code)
-  const code = req.params.code
-  const data = await Poll.findOne({ code: code })
+  const code = req.params.code;
+  const data = await Poll.findOne({ code: code });
   // console.log('the value of data is', data)
-  res.locals.data = data
-  next ()
-}
+  res.locals.data = data;
+  next();
+};
 
 module.exports = pollController;
