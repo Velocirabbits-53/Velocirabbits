@@ -22,7 +22,7 @@ function App() {
         <Route path='/confirmation' element={<Confirmation />} />
         <Route path='/voting-page' element={<VotingPage />} />
         <Route path='/results' element ={<Results />} />
-        <Route path ='/pastPollsGraph' element = {<pastPollsGraph/>} />
+        <Route path ='/pastPollsGraph' element = {<PastPollsGraph/>} />
       </Routes>
     </BrowserRouter>
   );
