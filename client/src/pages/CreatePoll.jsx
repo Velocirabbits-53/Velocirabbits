@@ -122,7 +122,7 @@ function CreatePoll() {
               key = {index}
               type='text'
               value={topic.pollTopic}
-              onChange={(e) => handlePollTopicChange(index, e.target.value)} // Update state as they type
+              onChange={(e) => handlePollTopicChange(index, e.target.value)}
               placeholder='Type poll topic'
               className='text-input'
             />

@@ -17,10 +17,11 @@ function App() {
         <Route path='/register' element={<Register/>} />
         <Route path='/dashboard' element={<Dashboard />} />
         <Route path='/create-poll' element={<CreatePoll />} />
-        <Route path='/voteing-page' element={<VotingPage />} />
+        <Route path='/voting-page' element={<VotingPage />} />
         <Route path='/login' element={<LoginPage />} />
         <Route path='/confirmation' element={<Confirmation />} />
         <Route path='/pastpolls' element={<PastPolls />} />
+        
       </Routes>
     </BrowserRouter>
   );

@@ -2,10 +2,14 @@
 
 import React from 'react';
 // allows for user to be redirect to another page (back to Dashboard)
-import { useNavigate,useLocation } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 function VotingPage() {
   const navigate = useNavigate();
+  const location = useLocation()
+   const data = location.state
+   const { username } = data;
+
 
   // getting data from login
   const location = useLocation();
@@ -23,7 +27,7 @@ function VotingPage() {
       {/* onClick handler calls submitHandleButtonClick */}
       {/* send data to db when a button is clicked */}
       <button onClick={submitHandleButtonClick}>Submit!</button>
-      <button onClick={() =>  navigate('/dashboard', { state: { username: `${username}` } })}>Dashboard</button>
+      <button onClick={() => navigate('/dashboard', { state: { username: `${username}` } })}>Dashboard</button>
     </div>
   );
 }
