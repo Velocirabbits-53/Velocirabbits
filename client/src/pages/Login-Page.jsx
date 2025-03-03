@@ -2,7 +2,7 @@
 import { useRef, useState } from "react";
 import "../App.css";
 import { useNavigate } from "react-router-dom";
-import "./Login-Page.css";
+import "./Style.css";
 
 function Login() {
   // declare navigate to change webaddresses
