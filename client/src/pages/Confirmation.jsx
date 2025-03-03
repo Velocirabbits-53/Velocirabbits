@@ -54,8 +54,6 @@ function Confirmation() {
       <h1>Congrats, {username}</h1>
       <p>Your poll code is ready to be shared! </p>
       <p> {code} </p>
-      <p>Vote on your code: </p>
-      <p> code space</p>
       {/* onClick handler calls voteNowHandleButtonClick */}
       {/* send data to db when a button is clicked */}
       <button onClick={()=>voteNowHandleButtonClick()}>Vote Now!</button>
