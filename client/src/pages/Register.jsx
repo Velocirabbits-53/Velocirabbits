@@ -3,6 +3,7 @@ import '../App.css';
 import './Register.css';
 import { useNavigate } from 'react-router-dom';
 
+
 function Register() {
   // declare navigate to change webaddresses
   const navigate = useNavigate();
