@@ -1,7 +1,9 @@
-import React, { use, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
+import '../App.css';
 import { useNavigate, useLocation } from 'react-router-dom';
+import Plot from 'react-plotly.js';
 
-const Results = () => {
+const ResultsGraph = () => {
   const navigate = useNavigate();
   const location = useLocation();
   //   const [polls, setPolls] = useState([]);
@@ -25,6 +27,7 @@ const Results = () => {
 
       .then((data) => {
         // console.log('data 💙:', data.pollName);
+        console.log('The value of data is ',data)
         setPoll(data);
         setPollName(data.pollName);
         // sorting our poll topics (high to low)
@@ -40,61 +43,35 @@ const Results = () => {
       });
   }, [url]);
 
-  // we must return a loding div until data comes back from our fetch req
+  // we must return a loading div until data comes back from our fetch req
   if (poll === undefined) {
     return <div>Loading</div>;
   }
-
   return (
     <div>
-      <h1>Results</h1>
-      <div>
+      <h1>Results:</h1>
+{poll && (
         <div>
-          <h2>{pollName}</h2>
-          {/* ul will wrap our unordered list */}
-          <ul>
-            {/* as mapping happens, it'll loop through, and check the index for where the topic ranks  */}
-            {pollTopics.map((topic, topicIndex) => {
-              let rank;
-              if (topicIndex === 0) {
-                rank = '1st Place';
-              } else if (topicIndex === 1) {
-                rank = '2nd Place';
-              } else if (topicIndex === 2) {
-                rank = '3rd Place';
-              } else {
-                rank = `${topicIndex + 1}th Place`;
-              }
+          <h2>{poll.pollName}</h2>
+          <Plot
+            data={[
               {
-                /* inside our list, each poll topic will be rendered as a list item */
-              }
-              return (
-                <li key={topicIndex}>
-                  {rank}: {topic.pollTopic} - {topic.votes} votes
-                </li>
-              );
-            })}
-          </ul>
+                x: poll.pollTopics.map((poll) => poll.pollTopic),
+                y: poll.pollTopics.map((poll) => poll.votes),
+                type: 'bar',
+                marker: { color: 'red' },
+              },
+            ]}
+            layout={{
+              title: `Poll Results: ${poll.pollName}`,
+              xaxis: { title: 'Poll Topics' },
+              yaxis: { title: 'Votes' },
+            }}
+          />
         </div>
-      </div>
-      <button
-        onClick={() =>
-          navigate('/dashboard', { state: { username: `${username}` } })
-        }
-      >
-        Dashboard
-      </button>
-      <button
-        onClick={() =>
-          navigate('/resultsGraph', {
-            state: { username: `${username}`, code: `${code}` },
-          })
-        }
-      >
-        View Results Graph!
-      </button>
+      )}
+
     </div>
   );
 };
-
-export default Results;
+export default ResultsGraph;

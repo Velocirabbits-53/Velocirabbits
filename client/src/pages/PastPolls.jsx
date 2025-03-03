@@ -47,6 +47,13 @@ const PastPolls = () => {
       >
         Dashboard
       </button>
+      <button
+        onClick={() =>
+          navigate('/pastPollsGraph', { state: { username: `${username}` } })
+        }
+      >
+       Past Polls Graphs
+      </button>
     </div>
   );
 };
