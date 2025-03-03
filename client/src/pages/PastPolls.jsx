@@ -15,7 +15,7 @@ const PastPolls = () => {
 
   const getPastPolls = async () => {
     try {
-      const response = await fetch('http://localhost:3000/user/pastpolls');
+      const response = await fetch(`http://localhost:3000/user/pastpolls${username}`);
       const data = await response.json();
       console.log(data);
       setPolls(data);
