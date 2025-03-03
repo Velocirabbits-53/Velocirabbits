@@ -21,7 +21,7 @@ function Register() {
       const response = await fetch('http://localhost:3000/user/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username: username, password: password }),
+        body: JSON.stringify({ username: `${username}` }),
       });
       if (response.ok) {
         console.log('You are logged in');

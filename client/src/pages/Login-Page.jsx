@@ -30,7 +30,7 @@ function Login() {
         // the line below is currently refreshing the page. we can test a redirect with another page once we have one, but it currently isn't correct.
         // window.location.href = '/' //put page structure for Dashboard/Homepage here.
         navigate('/dashboard', {
-          state: { username: `${username}`, password:  `${password}`},
+          state: { username: `${username}`},
         });
       } else {
         const error = await response.json();

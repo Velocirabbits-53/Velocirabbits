@@ -49,7 +49,11 @@ pollController.createPoll = async (req, res, next) => {
       return code;
     };
     const code = await generateUniqueCode();
-    const poll = await Poll.create({ pollName, pollTopics, code });
+    const pollTopicsWithVotes = pollTopics.map(topic => ({
+      ...topic,
+      votes: 0
+    }))
+    const poll = await Poll.create({ pollName, pollTopics:pollTopicsWithVotes , code });
     console.log('The value of poll is', poll);
     next();
   } catch (err) {
@@ -60,8 +64,19 @@ pollController.createPoll = async (req, res, next) => {
     });
   }
 };
-pollController.createdpollvotenow = (req, res, next) => {
+
+
+pollController.createdPollNoteNow = (req, res, next) => {
   next();
 };
+
+pollController.pastPolls = async (req, res, next) => {
+  const poll = await Poll.find();
+    console.log('The value of the poll is', poll);
+    res.locals.polls = poll
+  next();
+};
+
+
 
 module.exports = pollController;

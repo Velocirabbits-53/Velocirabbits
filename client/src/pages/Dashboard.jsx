@@ -1,7 +1,7 @@
 //* Dashboard / Homepage
 import React, { useState, useEffect } from 'react';
 // need in order to direct user to another page (Create a New Poll page or Voting page)
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 function Dashboard() {
   // Using usestate to store the user’s response
@@ -10,6 +10,12 @@ function Dashboard() {
 
   // function that redirects user to Create a New Poll page or Voting page
   const navigate = useNavigate();
+
+  // passing data from login/register into create poll
+  const location = useLocation();
+  const data = location.state;
+
+  const { username } = data;
 
   // load user's name from login
   useEffect(() => {
@@ -44,7 +50,7 @@ function Dashboard() {
   return (
     <div>
       <h1> DASHBOARD</h1>
-      <h2>Hello, {userName}</h2>
+      <h2>Hello, {username}</h2>
       {/* onClick handler calls newPollHandleButtonClick */}
       <button onClick={newPollHandleButtonClick}>Create a New Poll</button>
       <p> Vote on a Poll</p>
