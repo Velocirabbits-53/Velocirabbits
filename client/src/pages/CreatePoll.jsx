@@ -121,10 +121,8 @@ function CreatePoll() {
             <input
               key = {index}
               type='text'
-              // bounds prop value to pollTopics (where it's coming from)
               value={topic.pollTopic}
-              // onChange handler calls handlePollTopicChange to update the state whenever the user types in the input
-              onChange={(e) => handlePollTopicChange(index, e.target.value)} // Update state as they type
+              onChange={(e) => handlePollTopicChange(index, e.target.value)}
               placeholder='Type poll topic'
               className='text-input'
             />

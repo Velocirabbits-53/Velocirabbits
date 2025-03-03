@@ -35,7 +35,7 @@ function Dashboard() {
   // TODO Create Vote Now Button
   const voteNowHandleButtonClick = async () => {
     // redirect user to VotingPage.jsx
-    navigate('/vote-now', { state: { username: `${username}` } });
+    navigate('/voting-page', { state: { username: `${username}` } });
   };
 
   // TODO Create View Past Polls Button
@@ -57,8 +57,8 @@ function Dashboard() {
         <input
           type='text'
           value={codeName}
-          // onChange handler calls setGuestName to update the state whenever the user types
-          onChange={(e) => setCodeName(e.target.value)} // Update state as they type
+          
+          onChange={(e) => setCodeName(e.target.value)} 
           placeholder='Enter Code'
           className='text-input'
         />
