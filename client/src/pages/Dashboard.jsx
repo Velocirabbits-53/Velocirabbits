@@ -1,7 +1,9 @@
 //* Dashboard / Homepage
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 // need in order to direct user to another page (Create a New Poll page or Voting page)
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
+
+// TODO- needs to obtain username from Login Page
 
 function Dashboard() {
   // Using usestate to store the user’s response
@@ -11,30 +13,35 @@ function Dashboard() {
   // function that redirects user to Create a New Poll page or Voting page
   const navigate = useNavigate();
 
+  // getting data from login
+  const location = useLocation();
+  const data = location.state;
+  // deconstructed data
+  const { username } = data;
+
+  console.log('username:', data.username);
+
   // load user's name from login
-  useEffect(() => {
-    const storedName = localStorage.getItem('userName');
-    if (storedName) {
-      setUserName(storedName); // Set the user's name
-    }
-  }, []); // Runs once when the component loads
+  // useEffect(() => {
+  //   const storedName = localStorage.getItem('userName');
+  //   if (storedName) {
+  //     setUserName(storedName); // Set the user's name
+  //   }
+  // }, []); // Runs once when the component loads
 
   // TODO Create New Poll Button
-  //
   const newPollHandleButtonClick = async () => {
     // redirect user to createPoll.jsx
     navigate('/create-poll', { state: { test: 'test' } });
   };
 
   // TODO Create Vote Now Button
-  //
   const voteNowHandleButtonClick = async () => {
     // redirect user to VotingPage.jsx
     navigate('/vote-now');
   };
 
   // TODO Create View Past Polls Button
-  //
   const viewPastPollsHandleButtonClick = async () => {
     // redirect user to past polls page
     // navigate('/PastPolls.jsx');
@@ -44,7 +51,7 @@ function Dashboard() {
   return (
     <div>
       <h1> DASHBOARD</h1>
-      <h2>Hello, {userName}</h2>
+      <h2>Hello, {username}</h2>
       {/* onClick handler calls newPollHandleButtonClick */}
       <button onClick={newPollHandleButtonClick}>Create a New Poll</button>
       <p> Vote on a Poll</p>
