@@ -28,13 +28,17 @@ router.post('/create-poll', pollController.createPoll, (req, res) => {
   return res.status(200).send(res.locals.code);
 });
 
-router.post('/createdpoll/votenow', (req, res) => {
-  return res.status(200).send('This is the create poll page');
-});
-
 router.get('/pastpolls', pollController.pastPolls, (req, res) => {
   return res.status(200).send(res.locals.polls);
 });
+
+router.get('/voting-page:code', pollController.votingPage, (req, res) => {
+  return res.status(200).send(res.locals.poll);
+});
+
+router.patch('/updated-votes',pollController.updatedVotes,(req, res) => {
+  return res.status(200).send('The votes have been updated');
+})
 
 //Export the router---------------------------
 module.exports = router;
