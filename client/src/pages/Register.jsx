@@ -1,49 +1,17 @@
-import { useRef, useState } from 'react'
-import '../App.css'
-import { useNavigate } from 'react-router-dom';
 import { useRef, useState } from 'react';
 import '../App.css';
 import { useNavigate } from 'react-router-dom';
 
 function Register() {
-// setting the email/passRefs as useRef. 
-  const usernameRef = useRef();
   // declare navigate to change webaddresses
   const navigate = useNavigate();
 
   // setting the email/passRefs as useRef.
   const usernameRef = useRef();
   const passwordRef = useRef();
-  const navigate = useNavigate();
-  
-async  function regRequest (){
 
   async function regRequest() {
     // the buttonclick invokes this function
-    const username = usernameRef.current.value
-    const password = passwordRef.current.value
-    console.log(username)
-    console.log(password)
-  //   try{
-  //   await fetch('http://localhost:3000/user/register', {
-  //     method: 'POST',
-  //     headers: {'Content-Type': 'application/json'},
-  //     body: JSON.stringify({Username: username, Password: password})
-  //   });
-  //   if (response.ok){
-  //     console.log('You are logged in')
-  //     navigate('/dashboard',{ state:{ Username: username, Password: password } }) 
-  //   } else {
-  //     const error = await response.json();
-  //     console.error('Registration failed', error);
-  //     alert('Login failed' + (error.message|| 'Invalid login information.'))
-  //   }
-  // }catch(error){
-  //   console.error(error);
-  // }
-
-  navigate('/dashboard',{ state:{ Username: username, Password: password } }) 
-
     const username = usernameRef.current.value;
     const password = passwordRef.current.value;
     console.log(username);

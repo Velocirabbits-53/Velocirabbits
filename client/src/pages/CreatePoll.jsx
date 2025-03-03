@@ -1,5 +1,5 @@
 //* Create Poll page after user clicked Create a new Poll
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 // allows for user to be redirect to another page (back to Dashboard)
 import { useNavigate, useLocation } from 'react-router-dom';
 
@@ -7,7 +7,6 @@ import { useNavigate, useLocation } from 'react-router-dom';
 
 function CreatePoll() {
   const [pollName, setPollName] = useState('');
-  const pollOption = useRef();
   // setting useState's intial val to be an arr of 3 objs
   const [pollTopics, setPollTopics] = useState([
     { pollTopic: '' },
@@ -58,9 +57,7 @@ function CreatePoll() {
 
       // TODO user is to be redirected to Confirmation page for poll created
       // if request is successful, redirect user to Confirmation.jsx
-      
       if (response.ok) {
-        navigate('/confirmation');
         const code = await response.text();
         console.log(code);
         navigate('/confirmation' ,{ state: { username: `${username}`, code: `${code}` } });
@@ -73,12 +70,6 @@ function CreatePoll() {
       console.error('Error:', error);
     }
   };
-// on buttonclick for the +, we will invoke the function to add option
-  const addOption = (input) =>{
-    // logic to create a new html element with the value of the input
-    //logic to clear the input field.
-
-  }
   // onChange handler for editing topics when being typed in
   // we must do this bc we have an arr of topics (objs) as our state, & we need to know which el in the arr they are editing
   // index is the input that's being edited, newVal is the val getting changed to
@@ -109,15 +100,6 @@ function CreatePoll() {
       <h1 style={{ display: 'inline' }}>Name Your Poll: </h1>
       {/* The text box for user input */}
       <input
-      type = "text" ref={pollOption}
-      />
-      <button onClick={()=>addOption(pollOption)}>+</button>
-
-      {/* we want a "+" to add the options to the poll 
-      we want those to be contingent upon the "+" being pushed
-      we want each option in the poll to be unique<--- Harder, not sure how to do
-      we want each option in the poll to have a "-" so users can remove options -MS */}
-      <p>Name of Topics:</p>
         type='text'
         // bounds prop value to pollname (where it's coming from)
         value={pollName}
@@ -139,10 +121,8 @@ function CreatePoll() {
             <input
               key = {index}
               type='text'
-              // bounds prop value to pollTopics (where it's coming from)
               value={topic.pollTopic}
-              // onChange handler calls handlePollTopicChange to update the state whenever the user types in the input
-              onChange={(e) => handlePollTopicChange(index, e.target.value)} // Update state as they type
+              onChange={(e) => handlePollTopicChange(index, e.target.value)}
               placeholder='Type poll topic'
               className='text-input'
             />
@@ -153,7 +133,6 @@ function CreatePoll() {
       {/* onClick handler calls addTopics, createPolltHandleButtonClick*/}
       <button onClick={createPollHandleButtonClick}>Create Poll</button>
       {/* onClick handler redirects user back to Dashboard */}
-      <button onClick={() => navigate('/dashboard')}> Dashboard </button>
       <button
         onClick={() =>
           navigate('/dashboard', { state: { username: `${username}` } })
