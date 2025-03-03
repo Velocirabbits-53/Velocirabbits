@@ -7,8 +7,8 @@ const authenticationController = {};
 
 authenticationController.login = async (req, res, next) => {
   try {
+    console.log("we have reached the login controller");
     const { password, username } = req.body;
-    const user = User.findOne({ username });
     if (!username) {
       return res.status(400).json({ message: "incorrect username" });
     }
@@ -35,8 +35,9 @@ authenticationController.login = async (req, res, next) => {
 authenticationController.register = async (req, res, next) => {
   try {
     const { username, password } = req.body;
-
-    const userExists = await User.findOne({ username });
+    console.log("The value of the req.body.username is", req.body.username);
+    console.log("The value of the req.body.password is", req.body.password);
+    const userExists = await User.findOne({ username: username });
     if (userExists) {
       return res.status(400).json({ message: "User already exists" });
     }
@@ -47,9 +48,7 @@ authenticationController.register = async (req, res, next) => {
       username,
       password: hashedPassword,
     });
-
     await newUser.save();
-
     res.status(200).json({ message: "Thank you" });
     return next();
   } catch (error) {
