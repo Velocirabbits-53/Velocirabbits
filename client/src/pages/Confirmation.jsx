@@ -25,25 +25,17 @@ function Confirmation() {
     () => {
       // try {
       //   const response = await fetch('/', {
-      //     // how client sends req to server
-      //     // fetch(arg1: server url, arg2: object (req options))
-      //     // fetch sends req to the server at the route (route) = arg1 | req to create a new poll
-      //     // arg2: specifying that its a get req
       //     method: 'GET',
       //   });
 
-      //   // TODO user is to User Input page
-      //   // if request is successful, redirect user to Confirmation.jsx
       //   if (response.ok) {
       navigate('/voting-page', {
         state: { username: `${username}`, code: `${code}` },
       });
       //   } else {
-      //     // otherwise log error
       //     console.error('Failed to get the requested poll');
       //   }
       // } catch (error) {
-      //   // if something goes wrong in try block, error is logged
       //   console.error('Error:', error);
       // }
     };
