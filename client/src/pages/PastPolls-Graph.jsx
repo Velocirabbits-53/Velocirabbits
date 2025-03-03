@@ -80,3 +80,4 @@ useEffect(()=>{
 };
 
 export default PastPollsGraph;
+
