@@ -5,23 +5,22 @@ import CreatePoll from './pages/CreatePoll';
 import VoteNow from './pages/VotingPage';
 import LoginPage from './pages/Login-Page';
 import Confirmation from './pages/Confirmation';
-import Register from './pages/Register';
-
-// import PastPolls from './pages/PastPolls';
+import Login from './pages/Login-Page';
+import Register from './pages/Register.jsx'
+import PastPolls from './pages/PastPolls.jsx';
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path='/' element={<LoginPage/>}/>
-        <Route path='/register' element = {<Register/>} />
+        <Route path='/' element={<Login />} />
+        <Route path='/register' element={<Register/>} />
         <Route path='/dashboard' element={<Dashboard />} />
         <Route path='/create-poll' element={<CreatePoll />} />
         <Route path='/vote-now' element={<VoteNow />} />
         <Route path='/login' element={<LoginPage />} />
         <Route path='/confirmation' element={<Confirmation />} />
-
-        {/* <Route path='/past-polls' element={<PastPolls />} /> */}
+        <Route path='/pastpolls' element={<PastPolls />} />
       </Routes>
     </BrowserRouter>
   );
