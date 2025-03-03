@@ -55,12 +55,13 @@ function CreatePoll() {
       });
 
 
+
       // TODO user is to be redirected to Confirmation page for poll created
       // if request is successful, redirect user to Confirmation.jsx
       if (response.ok) {
         const code = await response.text();
-        console.log(code);
-        navigate('/confirmation' ,{ state: { username: `${username}`, code: `${code}` } });
+        
+        navigate('/confirmation' ,{ state: { username: `${username}`, code: `${code}`}});
       } else {
         // otherwise log error
         console.error('Failed to Create Poll');
@@ -101,9 +102,7 @@ function CreatePoll() {
       {/* The text box for user input */}
       <input
         type='text'
-        // bounds prop value to pollname (where it's coming from)
         value={pollName}
-        // onChange handler calls setPollTopics to update the state whenever the user types
         onChange={(e) => setPollName(e.target.value)} // Update state as they type
         placeholder='Type poll name'
         className='text-input'

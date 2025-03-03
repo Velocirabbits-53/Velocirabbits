@@ -37,7 +37,7 @@ pollController.dashboardVoteNow = async (req, res, next) => {
 
 pollController.createPoll = async (req, res, next) => {
   try {
-    await Poll.deleteMany({})
+    // await Poll.deleteMany({})
     const { pollName, pollTopics } = req.body;
     const generateUniqueCode = async () => {
       let code;
@@ -66,17 +66,29 @@ pollController.createPoll = async (req, res, next) => {
   }
 };
 
-
-pollController.createdPollNoteNow = (req, res, next) => {
-  next();
-};
-
 pollController.pastPolls = async (req, res, next) => {
   const poll = await Poll.find();
     // console.log('The value of the poll is', poll);
     res.locals.polls = poll
   next();
 };
+
+pollController.votingPage = async (req,res,next) => {
+  const code = req.params.code
+  console.log('The value of the code is ',code)
+
+  const poll = await Poll.findOne({code})
+  console.log('The value of the poll is ', poll)
+  res.locals.poll = poll
+  next()
+}
+
+pollController.updatedVotes = async (req,res,next) => {
+  // console.log(req.body)
+  const updatedPoll = await Poll.findOne({code:req.body.code})
+  console.log(updatedPoll)
+  next()
+}
 
 
 
