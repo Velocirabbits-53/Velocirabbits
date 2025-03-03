@@ -19,7 +19,7 @@ function Confirmation() {
         // fetch(arg1: server url, arg2: object (req options))
         // fetch sends req to the server at the route (route) = arg1 | req to create a new poll
         // arg2: specifying that its a get req
-        method: 'GET',
+        method: 'POST',
       });
 
       // TODO user is to User Input page
