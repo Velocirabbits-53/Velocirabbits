@@ -8,13 +8,17 @@ const authenticationController = {};
 authenticationController.login = async (req, res, next) => {
   try {
     console.log("we have reached the login controller");
+
     const { password, username } = req.body;
+    const user = await User.findOne({ username: username });
     if (!username) {
       return res.status(400).json({ message: "incorrect username" });
     }
+
     // if (password !== user.password) {
     //   return res.status(400).json({ message: "incorrect password" });
     // }
+
     const matched = await bcrypt.compare(password, user.password);
     if (!matched) {
       return res.status(400).json({ message: "incorrect password" });
