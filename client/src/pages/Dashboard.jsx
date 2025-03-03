@@ -35,7 +35,7 @@ function Dashboard() {
   // TODO Create Vote Now Button
   const voteNowHandleButtonClick = async () => {
     // redirect user to VotingPage.jsx
-    navigate('/vote-now', { state: { username: `${username}` } });
+    navigate('/voteing-page', { state: { username: `${username}` } });
   };
 
   // TODO Create View Past Polls Button

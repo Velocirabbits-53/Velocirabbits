@@ -34,7 +34,7 @@ function Confirmation() {
       // TODO user is to User Input page
       // if request is successful, redirect user to Confirmation.jsx
       if (response.ok) {
-        navigate('/UserInput.jsx');
+        navigate('/vote-page', { state: { username: `${username}` } });
       } else {
         // otherwise log error
         console.error('Failed to get the requested poll');

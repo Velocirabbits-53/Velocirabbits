@@ -59,7 +59,7 @@ function CreatePoll() {
       // if request is successful, redirect user to Confirmation.jsx
       if (response.ok) {
         const code = await response.text();
-        console.log(code);
+        // console.log(code);
         navigate('/confirmation' ,{ state: { username: `${username}`, code: `${code}` } });
       } else {
         // otherwise log error
@@ -121,9 +121,7 @@ function CreatePoll() {
             <input
               key = {index}
               type='text'
-              // bounds prop value to pollTopics (where it's coming from)
               value={topic.pollTopic}
-              // onChange handler calls handlePollTopicChange to update the state whenever the user types in the input
               onChange={(e) => handlePollTopicChange(index, e.target.value)} // Update state as they type
               placeholder='Type poll topic'
               className='text-input'
