@@ -6,8 +6,17 @@ import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 function Confirmation() {
-  const [userName, setUserName] = useState('username');
+
+  //can this be deleted?
+  // const [userName, setUserName] = useState('username');
+
   const navigate = useNavigate();
+
+  // bringing data from: dashboard?
+  const location = useLocation();
+  const data = location.state;
+  // deconstructed data
+  const { username, code } = data;
 
   // TODO Create where users click Vote Now
   // function sends the user's response to the server when they click the button (Create Poll)
@@ -38,15 +47,21 @@ function Confirmation() {
 
   return (
     <div>
-      <h1>Congrats, {userName}</h1>
+      <h1>Congrats, {username}</h1>
       <p>Your poll code is ready to be shared! </p>
-      <p> code</p>
+      <p> {code} </p>
       <p>Vote on your code: </p>
       <p> code space</p>
       {/* onClick handler calls voteNowHandleButtonClick */}
       {/* send data to db when a button is clicked */}
       <button onClick={voteNowHandleButtonClick}>Vote Now!</button>
-      <button onClick={() => navigate('/')}>Dashboard</button>
+      <button
+        onClick={() =>
+          navigate('/dashboard', { state: { username: `${username}` } })
+        }
+      >
+        Dashboard
+      </button>
     </div>
   );
 }
