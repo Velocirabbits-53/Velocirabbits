@@ -1,6 +1,6 @@
 const router = require("../routers/routers");
 const express = require("express");
-const User = require("../models/users");
+const { User } = require("../models/users");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const authenticationController = {};
@@ -20,10 +20,12 @@ authenticationController.login = async (req, res, next) => {
       return res.status(400).json({ message: "incorrect password" });
     }
     const payload = { userId: user._id };
+
     const token = jwt.sign(payload, process.env.JWT_SECRET, {
-      expiresIn: "0.25h",
+      expiresIn: "0.25hr",
     });
-    res.statatus(200).json({ message: "loged in ", token });
+
+    res.status(200).json({ message: "loged in ", token });
 
     return next();
   } catch (error) {
@@ -41,13 +43,14 @@ authenticationController.register = async (req, res, next) => {
     if (userExists) {
       return res.status(400).json({ message: "User already exists" });
     }
-
+    console.log("we are here");
     const salt = await bcrypt.genSalt(6);
     const hashedPassword = await bcrypt.hash(password, salt);
     const newUser = new User({
-      username,
+      username: username,
       password: hashedPassword,
     });
+    console.log(newUser);
     await newUser.save();
     res.status(200).json({ message: "Thank you" });
     return next();

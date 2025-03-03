@@ -3,7 +3,7 @@ require("dotenv").config();
 
 const mongoose = require("mongoose");
 //let password = Qw0PGEwC2Ip6wAHk
-const mongoURI = process.env.MONGO_URITWO;
+const mongoURI = process.env.MONGO_URI;
 
 mongoose.connect(mongoURI, {
   useNewUrlParser: true,
@@ -18,7 +18,7 @@ const userSchema = new mongoose.Schema({
 const pollSchema = new mongoose.Schema({
   pollName: { type: String },
   pollTopics: [{ pollTopic: { type: String } }],
-  code : { type: String }
+  code: { type: String },
 });
 
 const User = mongoose.model("User", userSchema);
