@@ -3,7 +3,7 @@ require("dotenv").config();
 
 const mongoose = require("mongoose");
 //let password = Qw0PGEwC2Ip6wAHk
-const mongoURI = process.env.MONGO_URI;
+const mongoURI = process.env.MONGO_URITWO;
 
 mongoose.connect(mongoURI, {
   useNewUrlParser: true,
