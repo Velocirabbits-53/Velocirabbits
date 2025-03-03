@@ -14,13 +14,16 @@ function CreatePoll() {
     { pollTopic: '' },
   ]);
 
+  // console.log('the value of pollName is ', pollName)
+  // console.log('the value of pollTopics is', pollTopics)
+
   const navigate = useNavigate();
 
   // bringing data from: dashboard?
   const location = useLocation();
   const data = location.state;
-
-  console.log('test 💙:', data);
+  // deconstructed data
+  const { username } = data;
 
   // TODO create add topics button
   const addTopicsHandleButtonClick = async () => {
@@ -35,14 +38,14 @@ function CreatePoll() {
   // create a new poll record in mongoose w/ fetch post req
   const createPollHandleButtonClick = async () => {
     try {
-      const response = await fetch('/user/createpoll', {
+      const response = await fetch('http://localhost:3000/user/create-poll', {
         // how client sends req to server
         // fetch(arg1: server url, arg2: object (req options))
         // fetch sends req to the server at the route (route) = arg1 | req to create a new poll
         // arg2: specifying that its a get req
         method: 'POST',
         headers: {
-          'Content-Type': 'application.json',
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           pollName: pollName, // poll name user is voting on (this should have been passed down from Dashboard)
@@ -51,10 +54,13 @@ function CreatePoll() {
         }),
       });
 
+
       // TODO user is to be redirected to Confirmation page for poll created
       // if request is successful, redirect user to Confirmation.jsx
       if (response.ok) {
-        navigate('/confirmation');
+        const code = await response.text();
+        console.log(code);
+        navigate('/confirmation' ,{ state: { username: `${username}`, code: `${code}` } });
       } else {
         // otherwise log error
         console.error('Failed to Create Poll');
@@ -113,6 +119,7 @@ function CreatePoll() {
           <div>
             {/* The text box for user input */}
             <input
+              key = {index}
               type='text'
               // bounds prop value to pollTopics (where it's coming from)
               value={topic.pollTopic}
@@ -128,7 +135,14 @@ function CreatePoll() {
       {/* onClick handler calls addTopics, createPolltHandleButtonClick*/}
       <button onClick={createPollHandleButtonClick}>Create Poll</button>
       {/* onClick handler redirects user back to Dashboard */}
-      <button onClick={() => navigate('/')}> Dashboard </button>
+      <button
+        onClick={() =>
+          navigate('/dashboard', { state: { username: `${username}` } })
+        }
+      >
+        {' '}
+        Dashboard{' '}
+      </button>
     </div>
   );
 }

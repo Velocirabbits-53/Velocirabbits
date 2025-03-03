@@ -37,7 +37,7 @@ pollController.dashboardVoteNow = async (req, res, next) => {
 
 pollController.createPoll = async (req, res, next) => {
   try {
-    // await Poll.deleteMany({})
+    await Poll.deleteMany({})
     const { pollName, pollTopics } = req.body;
     const generateUniqueCode = async () => {
       let code;
@@ -54,7 +54,8 @@ pollController.createPoll = async (req, res, next) => {
       votes: 0
     }))
     const poll = await Poll.create({ pollName, pollTopics:pollTopicsWithVotes , code });
-    console.log('The value of poll is', poll);
+    // console.log('The value of poll is', poll);
+    res.locals.code = code
     next();
   } catch (err) {
     return next({
@@ -72,7 +73,7 @@ pollController.createdPollNoteNow = (req, res, next) => {
 
 pollController.pastPolls = async (req, res, next) => {
   const poll = await Poll.find();
-    console.log('The value of the poll is', poll);
+    // console.log('The value of the poll is', poll);
     res.locals.polls = poll
   next();
 };

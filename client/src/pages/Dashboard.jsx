@@ -29,19 +29,19 @@ function Dashboard() {
   // TODO Create New Poll Button
   const newPollHandleButtonClick = async () => {
     // redirect user to createPoll.jsx
-    navigate('/create-poll', { state: { test: 'test' } });
+    navigate('/create-poll', { state: { username: `${username}` } });
   };
 
   // TODO Create Vote Now Button
   const voteNowHandleButtonClick = async () => {
     // redirect user to VotingPage.jsx
-    navigate('/vote-now');
+    navigate('/vote-now', { state: { username: `${username}` } });
   };
 
   // TODO Create View Past Polls Button
   const viewPastPollsHandleButtonClick = async () => {
     // redirect user to past polls page
-    navigate('/pastpolls');
+    navigate('/pastpolls', { state: { username: `${username}` } });
   };
 
   // everything in here gets rendered to the browser

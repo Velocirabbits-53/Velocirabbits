@@ -24,8 +24,8 @@ router.post(
 );
 
 //post request to handle the create poll button
-router.post('/createpoll', pollController.createPoll, (req, res) => {
-  return res.status(200).send('This is the create poll page');
+router.post('/create-poll', pollController.createPoll, (req, res) => {
+  return res.status(200).send(res.locals.code);
 });
 
 router.post('/createdpoll/votenow', (req, res) => {
