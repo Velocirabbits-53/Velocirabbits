@@ -1,11 +1,12 @@
 //* Confirmation page after user clicked Create Poll
 
-import React from 'react';
+import React, { useState } from 'react';
+
 // allows for user to be redirect to another page (back to Dashboard)
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 function Confirmation() {
-  const [userName, setUserName] = useState('Name');
+  const [userName, setUserName] = useState('username');
   const navigate = useNavigate();
 
   // TODO Create where users click Vote Now
