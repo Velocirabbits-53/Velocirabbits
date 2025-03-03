@@ -17,7 +17,7 @@ const userSchema = new mongoose.Schema({
 
 const pollSchema = new mongoose.Schema({
   pollName: { type: String },
-  pollTopics: [{ pollTopic: { type: String } }],
+  pollTopics: [{ pollTopic: { type: String }, votes: { type: Number } }],
   code: { type: String },
 });
 
