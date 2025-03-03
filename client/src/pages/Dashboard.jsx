@@ -41,7 +41,7 @@ function Dashboard() {
   // TODO Create View Past Polls Button
   const viewPastPollsHandleButtonClick = async () => {
     // redirect user to past polls page
-    // navigate('/PastPolls.jsx');
+    navigate('/pastpolls');
   };
 
   // everything in here gets rendered to the browser
