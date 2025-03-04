@@ -1,2 +1,2 @@
-# Poll-Sharks
-Goblin up the competition with our poll shark app
+# Velocirabbits
+Pouncing on the competition with our well tested poll app
