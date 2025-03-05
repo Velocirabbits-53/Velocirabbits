@@ -15,7 +15,7 @@ export interface PollReq {
   pollName: string;
   pollTopics: string[];
   createdBy: string;
-  votes: number;
+  votes: number[];
   //^ wot is it
 }
 
@@ -23,6 +23,10 @@ export interface PollRes {
   
 }
 
+export interface PollPoll {
+  poll: object;
+
+}
 
 export interface PollParam {
   username: string;

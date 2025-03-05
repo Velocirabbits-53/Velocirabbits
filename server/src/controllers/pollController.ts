@@ -3,7 +3,7 @@ import { router } from '../routers/routers';
 import {Request, Response, NextFunction, Express} from "express";
 import { Poll } from '../models/users';
 import crypto from 'crypto';
-import { PollParam, PollController, PollReq, PollRes } from "../types";
+import { PollPoll, PollParam, PollController, PollReq, PollRes } from "../types";
 
 const pollController: PollController = {};
 
@@ -107,32 +107,76 @@ pollController.votingPage = async (req, res, next) => {
   }
 };
 
-pollController.updatedVotes = async (req, res, next) => {
-  // console.log('The value of req.body is',req.body)
+pollController.updatedVotes = (req, res, next) => {
   const { votes } = req.body as PollReq;
-  // console.log('The value of incoming votes is',votes)
-  let updatedPoll;
-  while(updatedPoll){
-    // const updatedPoll = await Poll.findOne({ code: req.body.code });
-    if ((await Poll.findOne({ code: req.body.code }) !== null )) {
-      //TODO for rachel- is await in a function ok? Sometimes await gets mad if you try to do something too soon after setting a val equal to whatever comes back from the await function, so is this just fine? I'd think it wouldn't work but idk chatgpt said it's ok 
-      return updatedPoll = true;
-    } else { 
-      return updatedPoll = false;
-    }
-  }
-  // console.log('The value of the updated poll is',updatedPoll.pollTopics)
-  const pollTopics = updatedPoll.pollTopics;
-  // console.log('The value of the updated poll is', pollTopics)
-  pollTopics.map((poll, index) => {
-    // console.log('The value of poll.votes is',poll.votes)
-    // console.log('The value of votes[index]is', votes[index])
-    return (poll.votes = Number(poll.votes) + votes[index]);
-  });
-  // console.log('The value of updatedPollTopics is', updatedPoll);
-  await Poll.findOneAndUpdate({ code: req.body.code }, updatedPoll);
-  next();
+
+Poll.findOne({ code: req.body.code })
+    .then(updatedPoll => {
+      if (updatedPoll !== null) {
+        let pollTopics;
+        if (Array.isArray(updatedPoll.pollTopics)) {
+          pollTopics = updatedPoll.pollTopics;
+        } else {
+          return next();
+        }
+
+        updatedPoll.pollTopics = pollTopics.map((poll: PollPoll, index: number) => {
+          return {
+            ...poll,
+            votes: Number(poll.votes) + votes[index],
+          };
+        });
+
+        return Poll.findOneAndUpdate({ code: req.body.code }, updatedPoll.pollTopics)
+          .then(() => next())
+          .catch(err => next({
+            log: 'Error updating poll topics in pollController.updatedVotes',
+            status: 500,
+            message: { err: 'This is a 500 error message' },
+          }));
+      } else {
+        return next();
+      }
+    })
+    .catch(err => next({
+      log: 'Error finding poll in pollController.updatedVotes',
+      status: 500,
+      message: { err: 'This is a 500 error message' },
+    }));
 };
+
+
+// pollController.updatedVotes = async (req, res, next) => {
+//   // console.log('The value of req.body is',req.body)
+//   const { votes } = req.body as PollReq;
+//   // console.log('The value of incoming votes is',votes)
+//   const updatedPoll = await Poll.findOne({ code: req.body.code });
+//   // console.log('The value of the updated poll is',updatedPoll.pollTopics)
+
+//   if(updatedPoll !== null) {
+//     // const pollTopics = Array.isArray(updatedPoll.pollTopics) ? updatedPoll.pollTopics || []
+//     // ^ this means that updatedPoll will fall back onto an empty array if it finds that updatedPoll is null or nonexistent 
+//     let pollTopics;
+//     if(Array.isArray(updatedPoll.pollTopics)){
+//       pollTopics = updatedPoll.pollTopics;
+//     } else {
+//       return next()
+//     }
+//     // console.log('The value of the updated poll is', pollTopics)
+    
+//     updatedPoll.pollTopics = pollTopics.map((poll: PollPoll, index: number) => {
+//       // console.log('The value of poll.votes is',poll.votes)
+//       // console.log('The value of votes[index]is', votes[index])
+//       return {
+//         ...poll,
+//         votes = Number(poll.votes) + votes[index],
+//       } 
+//     });
+
+//     // console.log('The value of updatedPollTopics is', updatedPoll);
+//     await Poll.findOneAndUpdate({ code: req.body.code }, updatedPoll.pollTopics);
+//   }
+// };
 
 pollController.getResults = async (req, res, next) => {
   //get the data from database
