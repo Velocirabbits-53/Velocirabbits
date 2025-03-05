@@ -1,9 +1,9 @@
-import { router } from "../routers/routers";
-import {Express, NextFunction} from "express";
+// import { router } from "../routers/routers";
+// import {Express, NextFunction} from "express";
 import { User } from "../models/users";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import { AuthController, AuthReq, AuthRes } from "../types";
+import { AuthController} from "../types";
 
 const authenticationController: AuthController = { 
   login: async (req, res, next) => {
@@ -40,8 +40,8 @@ const authenticationController: AuthController = {
       }
     const payload = { userId: user._id }
     const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: "0.25hr" });
-    res.status(200).json({ message: "logged in", token })
-    return next()
+    return res.status(200).json({ message: "logged in", token })
+    // return next()
     })
     .catch((error) => {
       return next(error);
@@ -163,7 +163,7 @@ const authenticationController: AuthController = {
 //       expiresIn: "0.25hr",
 //     });
 
-//     res.status(200).json({ message: "loged in ", token });
+//     res.status(200).json({ message: "logged in ", token });
 
 //     return next();
 //   } catch (error) {
