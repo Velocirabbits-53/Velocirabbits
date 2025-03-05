@@ -11,10 +11,10 @@ const PastPolls = () => {
 
   const [polls, setPolls] = useState<Poll[]>([]);
 
-  const getPastPolls = async () => {
+  const getPastPolls = async (): Promise<void> => {
     try {
       const response = await fetch(
-        `http://localhost:3000/user/pastpolls${username}`
+        `http://localhost:3000/user/pastpolls/${username}`
       );
       const data: Poll[] = await response.json();
       console.log(data);

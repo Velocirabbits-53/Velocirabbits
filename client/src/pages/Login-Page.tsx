@@ -7,12 +7,12 @@ import { LocationState } from '../types';
 
 
 function Login() {
-  // declare navigate to change webaddresses
+  // declare navigate to change web addresses
   const navigate = useNavigate();
 
   // setting the username/passRefs as useRef.
-  const usernameRef = useRef<HTMLInputElement | null>(null);
-  const passwordRef = useRef<HTMLInputElement | null>(null);
+  const usernameRef = useRef<HTMLInputElement>(null!);
+  const passwordRef = useRef<HTMLInputElement>(null!);
   
   async function loginRequest(): Promise<void> {
     if (!usernameRef.current || !passwordRef.current) {
@@ -65,7 +65,7 @@ function Login() {
         <input type='password' ref={passwordRef} />
       </div>
       <div className='card'>
-        {/* onclick, this should update the refsand  */}
+        {/* onclick, this should update the refs  */}
         <div>
           <button onClick={loginRequest}>Login</button>
           <button onClick={registerButtonClick}>Register</button>

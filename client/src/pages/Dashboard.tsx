@@ -19,7 +19,7 @@ function Dashboard() {
 
   console.log('username:', data.username);
 
-  // load user's name from login 
+  // load user's name from login
   // useEffect(() => {
   //   const storedName = localStorage.getItem('userName');
   //   if (storedName) {
@@ -28,35 +28,44 @@ function Dashboard() {
   // }, []); // Runs once when the component loads
 
   // TODO Create New Poll Button
-  const newPollHandleButtonClick = async () => {
+  const newPollHandleButtonClick = async (): Promise<void> => {
     // redirect user to createPoll.jsx
-    navigate('/create-poll', { state: { username: `${username}` } as LocationState });
+    navigate('/create-poll', {
+      state: { username: `${username}` } as LocationState,
+    });
   };
 
   // TODO Create Vote Now Button
-  const voteNowHandleButtonClick = async () => {
+  const voteNowHandleButtonClick = async (): Promise<void> => {
     // redirect user to VotingPage.jsx
-  try{
-    const response = await fetch (`http://localhost:3000/user/results${codeName}`, {
-      method: 'GET',
-      headers: { 'Content-Type': 'application/json' },
-    })
+    try {
+      const response = await fetch(
+        `http://localhost:3000/user/results/${codeName}`,
+        {
+          method: 'GET',
+          headers: { 'Content-Type': 'application/json' },
+        }
+      );
 
-    console.log(response)
+      console.log(response);
 
-    if (response.ok){
-      navigate('/voting-page', { state: { username: `${username}`, code: `${codeName}` } as LocationState});
-    }
-    else{ 
-      alert('Please input a valid poll code')};
-    }
-    catch (error) {
+      if (response.ok) {
+        navigate('/voting-page', {
+          state: {
+            username: `${username}`,
+            code: `${codeName}`,
+          } as LocationState,
+        });
+      } else {
+        alert('Please input a valid poll code');
+      }
+    } catch (error) {
       console.error(error);
     }
   };
 
   // TODO Create View Past Polls Button
-  const viewPastPollsHandleButtonClick = async () => {
+  const viewPastPollsHandleButtonClick = async (): Promise<void> => {
     // redirect user to past polls page
     navigate('/pastpolls', { state: { username: `${username}` } });
   };
@@ -74,8 +83,7 @@ function Dashboard() {
         <input
           type='text'
           value={codeName}
-          
-          onChange={(e) => setCodeName(e.target.value)} 
+          onChange={(e) => setCodeName(e.target.value)}
           placeholder='Enter Code'
           className='text-input'
         />

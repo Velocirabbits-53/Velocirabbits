@@ -30,7 +30,7 @@ function CreatePoll() {
   const { username } = data;
 
   // TODO create add topics button
-  const addTopicsHandleButtonClick = async () => {
+  const addTopicsHandleButtonClick = async (): Promise<void> => {
     //
     setPollTopics([...pollTopics, { pollTopic: '', votes: 0 }]);
   };
