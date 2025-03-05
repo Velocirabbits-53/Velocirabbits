@@ -2,23 +2,24 @@
 import React, { useState } from 'react';
 // need in order to direct user to another page (Create a New Poll page or Voting page)
 import { useNavigate, useLocation } from 'react-router-dom';
+import { LocationState } from '../types';
 
 function Dashboard() {
-  // Using usestate to store the user’s response
-  const [codeName, setCodeName] = useState(''); // codeName stores code typed (stores id)
+  // Using useState to store the user’s response
+  const [codeName, setCodeName] = useState<string>(''); // codeName stores code typed (stores id)
 
   // function that redirects user to Create a New Poll page or Voting page
   const navigate = useNavigate();
 
   // getting data from login
   const location = useLocation();
-  const data = location.state;
+  const data: LocationState = location.state;
   // deconstructed data
   const { username } = data;
 
   console.log('username:', data.username);
 
-  // load user's name from login
+  // load user's name from login 
   // useEffect(() => {
   //   const storedName = localStorage.getItem('userName');
   //   if (storedName) {
@@ -29,30 +30,29 @@ function Dashboard() {
   // TODO Create New Poll Button
   const newPollHandleButtonClick = async () => {
     // redirect user to createPoll.jsx
-    navigate('/create-poll', { state: { username: `${username}` } });
+    navigate('/create-poll', { state: { username: `${username}` } as LocationState });
   };
 
   // TODO Create Vote Now Button
   const voteNowHandleButtonClick = async () => {
     // redirect user to VotingPage.jsx
   try{
-const response = await fetch (`http://localhost:3000/user/results${codeName}`, {
-  method: 'GET',
-  headers: { 'Content-Type': 'application/json' },
-  
-})
-console.log(response)
-if (response.ok){
-  navigate('/voting-page', { state: { username: `${username}`,
-     code: `${codeName}`,
-     } });
-}
-else{ alert('Please input a valid poll code')}
-  }
-  catch (error) {
-    console.error(error);
-  }
-    
+    const response = await fetch (`http://localhost:3000/user/results${codeName}`, {
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json' },
+    })
+
+    console.log(response)
+
+    if (response.ok){
+      navigate('/voting-page', { state: { username: `${username}`, code: `${codeName}` } as LocationState});
+    }
+    else{ 
+      alert('Please input a valid poll code')};
+    }
+    catch (error) {
+      console.error(error);
+    }
   };
 
   // TODO Create View Past Polls Button
