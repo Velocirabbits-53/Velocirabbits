@@ -1,21 +1,24 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import '../App.css';
 import { useNavigate, useLocation } from 'react-router-dom';
 import Plot from 'react-plotly.js';
+import { Poll, PollTopic, LocationState } from '../types';
+
+
 
 const ResultsGraph = () => {
   const navigate = useNavigate();
   const location = useLocation();
   //   const [polls, setPolls] = useState([]);
   // only passing in one poll
-  const [poll, setPoll] = useState();
-  const [pollName, setPollName] = useState('');
-  const [pollTopics, setPollTopics] = useState([]);
+  const [poll, setPoll] = useState<Poll>();
+  const [pollName, setPollName] = useState<string>('');
+  const [pollTopics, setPollTopics] = useState<PollTopic[]>([]);
   //   const [votes, setVotes] = useState([]);
-  const data = location.state || {};
+  const data: LocationState = location.state || {};
   const { username, code } = data;
 
-  const url = `http://localhost:3000/user/results${code}`;
+  const url: string = `http://localhost:3000/user/results${code}`;
   useEffect(() => {
     fetch(url)
       .then((response) => {
@@ -32,13 +35,13 @@ const ResultsGraph = () => {
         setPollName(data.pollName);
         // sorting our poll topics (high to low)
         // arr is the poll topics fetched from the backend, using an arr so that we don't edit our original one but instead make a copy
-        const sortedTopics = [...data.pollTopics].sort(
+        const sortedTopics: any[] = [...data.pollTopics].sort(
           (a, b) => b.votes - a.votes
         );
         // we are setting our poll topic state to the sorted topics ()
         setPollTopics(sortedTopics);
       })
-      .catch((error) => {
+      .catch((error: Error) => {
         console.error('error fetching data', error);
       });
   }, [url]);
