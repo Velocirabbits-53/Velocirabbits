@@ -3,6 +3,7 @@ import { useRef, useState } from 'react';
 import '../App.css';
 import { useNavigate } from 'react-router-dom';
 import './Login-Page.css';
+import { LocationState } from '../types';
 
 
 function Login() {
@@ -10,13 +11,17 @@ function Login() {
   const navigate = useNavigate();
 
   // setting the username/passRefs as useRef.
-  const usernameRef = useRef();
-  const passwordRef = useRef();
-
-  async function loginRequest() {
+  const usernameRef = useRef<HTMLInputElement | null>(null);
+  const passwordRef = useRef<HTMLInputElement | null>(null);
+  
+  async function loginRequest(): Promise<void> {
+    if (!usernameRef.current || !passwordRef.current) {
+      console.error("Username or password input is not available.");
+      return;
+    }
     // the buttonclick invokes this function
-    const username = usernameRef.current.value;
-    const password = passwordRef.current.value;
+    const username: string = usernameRef.current.value;
+    const password: string = passwordRef.current.value;
     console.log(username);
     console.log(password);
     try {
@@ -31,9 +36,7 @@ function Login() {
         console.log('You are logged in');
         // the line below is currently refreshing the page. we can test a redirect with another page once we have one, but it currently isn't correct.
         // window.location.href = '/' //put page structure for Dashboard/Homepage here.
-        navigate('/dashboard', {
-          state: { username: `${username}` },
-        });
+        navigate('/dashboard', { state: { username: `${username}` } as LocationState });
       } else {
         const error = await response.json();
         console.error('Login failed', error);
@@ -44,7 +47,7 @@ function Login() {
     }
   }
 
-  const registerButtonClick = async () => {
+  const registerButtonClick = async (): Promise<void> => {
     // redirect user to Register.jsx
     navigate('/register');
   };
