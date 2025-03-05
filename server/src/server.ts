@@ -1,6 +1,6 @@
 //Boilerplate imports------------------------------
 import path from 'path';
-import express from 'express';
+import express, { Request, Response, NextFunction } from "express";
 import cors from 'cors';
 const app = express();
 const PORT = 3000;
@@ -17,16 +17,16 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/user',router)
 
 //Boilerplate to check if the code is working correctly---------------------------
-app.get('/', (req, res) => {
+app.get('/', (req: Request, res: Response) => {
   res.status(200).json('Hello from the backend');
 });
 //Boilerplate to send a 404 error if page doesn't exit---------------------------
-app.use((req, res) => {
+app.use((req: Request, res: Response) => {
   res.status(404).json('This is a 404 error');
 });
 
 //Boilerplate to send a 500 error if system error--------------------------------
-app.use((err, req, res, next) => {
+app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   const defaultErr = {
     log: 'You are receiving an error from the server',
     status: 500,
@@ -41,4 +41,4 @@ app.listen(PORT, () => {
   console.log(`Now listening on ${PORT}`);
 });
 
-export { app }
+export default app;
