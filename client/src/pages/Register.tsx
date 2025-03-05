@@ -3,16 +3,20 @@ import '../App.css';
 import './Register.css';
 import { useNavigate } from 'react-router-dom';
 
-
 function Register() {
   // declare navigate to change webaddresses
   const navigate = useNavigate();
 
   // setting the email/passRefs as useRef.
-  const usernameRef = useRef();
-  const passwordRef = useRef();
+  const usernameRef = useRef<HTMLInputElement>(null);
+  const passwordRef = useRef<HTMLInputElement>(null);
 
   async function regRequest() {
+    if (!usernameRef.current || !passwordRef.current) {
+      console.error("Username or password input is not available.");
+      return;
+    }
+
     // the buttonclick invokes this function
     const username = usernameRef.current.value;
     const password = passwordRef.current.value;
