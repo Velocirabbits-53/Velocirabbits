@@ -24,9 +24,10 @@ export interface PollRes {
 }
 
 export interface PollPoll {
-  poll: object;
+  pollTopic?: string | null;
+  votes?: number | null;
+};
 
-}
 
 export interface PollParam {
   username: string;

@@ -4,7 +4,9 @@ import {Request, Response, NextFunction, Express} from "express";
 import { Poll } from '../models/users';
 import crypto from 'crypto';
 import { PollPoll, PollParam, PollController, PollReq, PollRes } from "../types";
+import { Document, Types } from 'mongoose';
 
+type PollArray = Types.DocumentArray<PollPoll>;
 const pollController: PollController = {};
 
 // This is the controller for the dashboard vote now button
@@ -110,7 +112,7 @@ pollController.votingPage = async (req, res, next) => {
 pollController.updatedVotes = (req, res, next) => {
   const { votes } = req.body as PollReq;
 
-Poll.findOne({ code: req.body.code })
+  return Poll.findOne({ code: req.body.code })
     .then(updatedPoll => {
       if (updatedPoll !== null) {
         let pollTopics;
@@ -120,12 +122,12 @@ Poll.findOne({ code: req.body.code })
           return next();
         }
 
-        updatedPoll.pollTopics = pollTopics.map((poll: PollPoll, index: number) => {
+        updatedPoll.pollTopics  = pollTopics.map((poll, index: number) => {
           return {
             ...poll,
             votes: Number(poll.votes) + votes[index],
           };
-        });
+        }) as PollArray;
 
         return Poll.findOneAndUpdate({ code: req.body.code }, updatedPoll.pollTopics)
           .then(() => next())
