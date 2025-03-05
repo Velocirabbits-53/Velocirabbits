@@ -5,10 +5,12 @@ import mongoose from "mongoose";
 //let password = Qw0PGEwC2Ip6wAHk
 const mongoURI = process.env.MONGO_URITWO;
 
-mongoose.connect(mongoURI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+if (mongoURI) {
+  mongoose.connect(mongoURI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  } as mongoose.ConnectOptions);
+}
 
 const userSchema = new mongoose.Schema({
   username: { type: String, required: true, unique: true },
