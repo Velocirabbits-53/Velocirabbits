@@ -1,9 +1,28 @@
-import React, { use, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 
-const Results = () => {
-  const navigate = useNavigate();
-  const location = useLocation();
+//Define structure for poll topic
+interface PollTopic {
+  pollTopic: string;
+  votes: number;
+}
+
+//Define structure of the poll
+interface Poll {
+  pollName: string;
+  pollTopics: PollTopic[];
+}
+
+// // Define the expected structure of the location state
+// interface LocationState {
+//   username?: string;
+//   code?: string;
+// }
+
+
+const Results: React.FC = () => {
+  const navigate: string = useNavigate();
+  const location: string useLocation();
   //   const [polls, setPolls] = useState([]);
   // only passing in one poll
   const [poll, setPoll] = useState();
