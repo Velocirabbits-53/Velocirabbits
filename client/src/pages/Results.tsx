@@ -1,16 +1,17 @@
-import React, { use, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { Poll, PollTopic, LocationState } from '../types';
 
-const Results = () => {
+const Results: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
   //   const [polls, setPolls] = useState([]);
   // only passing in one poll
-  const [poll, setPoll] = useState();
-  const [pollName, setPollName] = useState('');
-  const [pollTopics, setPollTopics] = useState([]);
+  const [poll, setPoll] = useState<Poll>(); // TS Require this to be a poll type
+  const [pollName, setPollName] = useState<string>(''); 
+  const [pollTopics, setPollTopics] = useState<PollTopic[]>([]); // TS Require this to be a pollTopic type
   //   const [votes, setVotes] = useState([]);
-  const data = location.state || {};
+  const data: LocationState = location.state || {};
   const { username, code } = data;
 
   const url = `http://localhost:3000/user/results${code}`;
@@ -40,7 +41,7 @@ const Results = () => {
       });
   }, [url]);
 
-  // we must return a loding div until data comes back from our fetch req
+  // we must return a loading div until data comes back from our fetch req
   if (poll === undefined) {
     return <div>Loading</div>;
   }
