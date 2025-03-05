@@ -5,11 +5,11 @@ import CreatePoll from './pages/CreatePoll';
 import VotingPage from './pages/VotingPage';
 import Confirmation from './pages/Confirmation';
 import Login from './pages/Login-Page';
-import Register from './pages/Register.jsx'
-import PastPolls from './pages/PastPolls.jsx';
-import Results from './pages/Results.jsx'
-import PastPollsGraph from './pages/PastPolls-Graph.jsx'
-import ResultsGraph from './pages/Results-Graph.jsx';
+import Register from './pages/Register';
+import PastPolls from './pages/PastPolls';
+import Results from './pages/Results';
+import PastPollsGraph from './pages/PastPolls-Graph';
+import ResultsGraph from './pages/Results-Graph';
 
 function App() {
   return (

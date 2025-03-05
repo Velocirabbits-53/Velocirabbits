@@ -1,14 +1,16 @@
 //this is needed to read the .env file
 require("dotenv").config();
 
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 //let password = Qw0PGEwC2Ip6wAHk
 const mongoURI = process.env.MONGO_URITWO;
 
-mongoose.connect(mongoURI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+if (mongoURI) {
+  mongoose.connect(mongoURI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  } as mongoose.ConnectOptions);
+}
 
 const userSchema = new mongoose.Schema({
   username: { type: String, required: true, unique: true },
@@ -25,7 +27,7 @@ const pollSchema = new mongoose.Schema({
 const User = mongoose.model("User", userSchema);
 const Poll = mongoose.model("Poll", pollSchema);
 
-module.exports = { User, Poll };
+export { User, Poll };
 
 // import express from "express";
 // import mongoose from "mongoose";
