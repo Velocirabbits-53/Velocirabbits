@@ -1,7 +1,8 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import '../App.css';
 import { useNavigate, useLocation } from 'react-router-dom';
 import Plot from 'react-plotly.js';
+import { Poll, PollTopic, LocationState } from '../types';
 
 const PastPollsGraph = () => {
 
