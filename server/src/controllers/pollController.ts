@@ -81,7 +81,6 @@ pollController.createPoll = async (req, res, next) => {
 
 pollController.pastPolls = async (req, res, next) => {
   const { username } = req.params as PollParam;
-  // TODO this is where we stopped
   const poll = await Poll.find({ createdBy: username });
   // console.log('The value of the poll is', poll);
   res.locals.polls = poll;
@@ -90,7 +89,7 @@ pollController.pastPolls = async (req, res, next) => {
 
 pollController.votingPage = async (req, res, next) => {
   try {
-    const code = req.params.code;
+    const { code } = req.params;
     // console.log('The value of the code is ',code)
     const poll = await Poll.findOne({ code });
     // console.log('The value of the poll is ', poll)
@@ -110,9 +109,18 @@ pollController.votingPage = async (req, res, next) => {
 
 pollController.updatedVotes = async (req, res, next) => {
   // console.log('The value of req.body is',req.body)
-  const votes = req.body.votes;
+  const { votes } = req.body as PollReq;
   // console.log('The value of incoming votes is',votes)
-  const updatedPoll = await Poll.findOne({ code: req.body.code });
+  let updatedPoll;
+  while(updatedPoll){
+    // const updatedPoll = await Poll.findOne({ code: req.body.code });
+    if ((await Poll.findOne({ code: req.body.code }) !== null )) {
+      //TODO for rachel- is await in a function ok? Sometimes await gets mad if you try to do something too soon after setting a val equal to whatever comes back from the await function, so is this just fine? I'd think it wouldn't work but idk chatgpt said it's ok 
+      return updatedPoll = true;
+    } else { 
+      return updatedPoll = false;
+    }
+  }
   // console.log('The value of the updated poll is',updatedPoll.pollTopics)
   const pollTopics = updatedPoll.pollTopics;
   // console.log('The value of the updated poll is', pollTopics)

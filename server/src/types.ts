@@ -15,6 +15,8 @@ export interface PollReq {
   pollName: string;
   pollTopics: string[];
   createdBy: string;
+  votes: number;
+  //^ wot is it
 }
 
 export interface PollRes {
