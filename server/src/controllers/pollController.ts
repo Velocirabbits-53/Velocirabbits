@@ -1,27 +1,28 @@
 //Boilerplate imports------------------------------
-const router = require('../routers/routers');
-const express = require('express');
-const { Poll } = require('../models/users');
-const crypto = require('crypto');
+import { router } from '../routers/routers';
+import {Request, Response, NextFunction, Express} from "express";
+import { Poll } from '../models/users';
+import crypto from 'crypto';
+import { PollParam, PollController, PollReq, PollRes } from "../types";
 
-const pollController = {};
+const pollController: PollController = {};
 
-//This is the controller for the dashboard vote now button
+// This is the controller for the dashboard vote now button
 pollController.dashboardVoteNow = async (req, res, next) => {
   try {
-    //destructure req.body to take the incoming code
+    // destructure req.body to take the incoming code
     // console.log('The value of the incoming req.body.code is', req.body.code);
     const { code } = req.body;
     // console.log('The value of the code is', code);
     //assign a variable to the value of the code inside of the database
     const poll = await Poll.findOne({ code: code });
     // console.log('The value of the poll is', poll);
-    //check if the code exist inside of the database
+    // check if the code exist inside of the database
     if (poll) {
-      //if it exist inside of the database, return a 200 response
+      // if it exist inside of the database, return a 200 response
       next();
     } else {
-      //otherwise throw an error
+      // otherwise throw an error
       return res
         .status(400)
         .json({ message: "code doesn't exist in database" });
@@ -44,13 +45,20 @@ pollController.createPoll = async (req, res, next) => {
       let exists = true;
       while (exists) {
         code = crypto.randomBytes(3).toString('hex').toUpperCase();
-        exists = await Poll.findOne({ code });
+        if ((await Poll.findOne({ code }) !== null )) {
+          //TODO for rachel- is await in a function ok? Sometimes await gets mad if you try to do something too soon after setting a val equal to whatever comes back from the await function, so is this just fine? I'd think it wouldn't work but idk chatgpt said it's ok 
+          return exists = true
+        } else { 
+          return exists = false
+        }
+        // ^ THIS IS AN "UGLY" WAY OF WRITING exist = (await Poll.findOne({ code }) !== null)
       }
       return code;
     };
     const code = await generateUniqueCode();
-    const pollTopicsWithVotes = pollTopics.map((topic) => ({
-      ...topic,
+    const pollTopicsWithVotes = pollTopics.map((topic: {}) => ({ // topic is an object?
+      // ? why were the "topic"s defined as objects?? it's kinda fine but why- we had to define topic as an object inline because of it
+      ...topic, // TODO we want to extract the topic value from the topic object?
       votes: 0,
     }));
     const poll = await Poll.create({
@@ -72,7 +80,8 @@ pollController.createPoll = async (req, res, next) => {
 };
 
 pollController.pastPolls = async (req, res, next) => {
-  const username = req.params.username;
+  const { username } = req.params as PollParam;
+  // TODO this is where we stopped
   const poll = await Poll.find({ createdBy: username });
   // console.log('The value of the poll is', poll);
   res.locals.polls = poll;
@@ -127,4 +136,4 @@ pollController.getResults = async (req, res, next) => {
   next();
 };
 
-module.exports = pollController;
+export { pollController }

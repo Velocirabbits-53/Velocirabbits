@@ -1,16 +1,16 @@
 //Boilerplate imports------------------------------
-const express = require('express');
+import { Request, Response } from "express";
+import { authenticationController } from '../controllers/authenticationController';
+import { pollController } from '../controllers/pollController';
 const router = express.Router();
-const authenticationController = require('../controllers/authenticationController');
-const pollController = require('../controllers/pollController');
 
 //post request to handle logins -> tested and works
-router.post('/login', authenticationController.login, (req, res) => {
+router.post('/login', authenticationController.login, (req: Request, res: Response) => {
   return res.status(200).send('This is the working login button');
 });
 
 //post request to handle logins -> tested and works
-router.post('/register', authenticationController.register, (req, res) => {
+router.post('/register', authenticationController.register, (req: Request, res: Response) => {
   return res.status(200).send('This is the working register submit button');
 });
 
@@ -18,31 +18,31 @@ router.post('/register', authenticationController.register, (req, res) => {
 router.post(
   '/dashboard/votenow',
   pollController.dashboardVoteNow,
-  (req, res) => {
+  (req: Request, res: Response) => {
     return res.status(200).send('This is the working database vote now button');
   }
 );
 
 //post request to handle the create poll button
-router.post('/create-poll', pollController.createPoll, (req, res) => {
+router.post('/create-poll', pollController.createPoll, (req: Request, res: Response) => {
   return res.status(200).send(res.locals.code);
 });
 
-router.get('/pastpolls:username', pollController.pastPolls, (req, res) => {
+router.get('/pastpolls:username', pollController.pastPolls, (req: Request, res: Response) => {
   return res.status(200).send(res.locals.polls);
 });
 
-router.get('/voting-page:code', pollController.votingPage, (req, res) => {
+router.get('/voting-page:code', pollController.votingPage, (req: Request, res: Response) => {
   return res.status(200).send(res.locals.poll);
 });
 
-router.patch('/updated-votes',pollController.updatedVotes,(req, res) => {
+router.patch('/updated-votes',pollController.updatedVotes,(req: Request, res: Response) => {
   return res.status(200).send('The votes have been updated');
 })
 
-router.get('/results:code', pollController.getResults, (req, res) => {
+router.get('/results:code', pollController.getResults, (req: Request, res: Response) => {
   return res.status(200).send(res.locals.data);
 })
 
 //Export the router---------------------------
-module.exports = router;
+export { router }

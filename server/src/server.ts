@@ -1,12 +1,12 @@
 //Boilerplate imports------------------------------
-const path = require('path');
-const express = require('express');
+import path from 'path';
+import express from 'express';
+import cors from 'cors';
 const app = express();
 const PORT = 3000;
-const cors = require('cors');
 
 //Import the router------------------------------
-const router = require('./routers/routers');
+import {router} from './routers/routers';
 
 //Boilerplate adjustment of data--------------------------------------
 app.use(express.json());
@@ -41,4 +41,4 @@ app.listen(PORT, () => {
   console.log(`Now listening on ${PORT}`);
 });
 
-module.exports = app;
+export { app }
