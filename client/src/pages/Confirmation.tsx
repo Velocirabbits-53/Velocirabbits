@@ -25,7 +25,7 @@ function Confirmation() {
         state: { username: `${username}`, code: `${code}` },
       });
     };
-
+ 
   return (
     <div>
       <h1>Congrats, {username}</h1>
