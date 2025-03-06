@@ -10,7 +10,7 @@ const PastPolls = () => {
   const { username } = data;
 
   const [polls, setPolls] = useState<Poll[]>([]);
-  //add a error usestate
+  //add a error useState
   const[error, setError] = useState<string | null>(null);
 
   const getPastPolls = async (): Promise<void> => {
