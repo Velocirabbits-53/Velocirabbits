@@ -5,25 +5,29 @@ import { Poll, PollTopic, LocationState } from '../types';
 const Results: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  //   const [polls, setPolls] = useState([]);
+  // const [polls, setPolls] = useState([]);
   // only passing in one poll
-  const [poll, setPoll] = useState<Poll>(); // TS Require this to be a poll type
-  const [pollName, setPollName] = useState<string>(''); 
+  const [poll, setPoll] = useState<Poll>({
+    pollName: '',
+    pollTopics: [],
+    code: '',
+    createdBy: '',
+  }); // TS Require this to be a poll type
+  const [pollName, setPollName] = useState<string>('');
   const [pollTopics, setPollTopics] = useState<PollTopic[]>([]); // TS Require this to be a pollTopic type
-  //   const [votes, setVotes] = useState([]);
+  // const [votes, setVotes] = useState([]);
   const data: LocationState = location.state || {};
   const { username, code } = data;
 
-  const url = `http://localhost:3000/user/results${code}`;
+  const url = `http://localhost:3000/user/results/${code}`;
   useEffect(() => {
     fetch(url)
-      .then((response) => {
+      .then((response): Promise<Poll> => {
         if (!response.ok) {
           throw new Error('the response contains an error');
         }
         return response.json();
       })
-
       .then((data) => {
         // console.log('data 💙:', data.pollName);
         setPoll(data);

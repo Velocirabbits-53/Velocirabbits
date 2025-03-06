@@ -16,10 +16,10 @@ function VotingPage() {
   const data: LocationState = location.state;
   const { username, code } = data;
   // console.log(code);
-  const url = `http://localhost:3000/user/voting-page${code}`;
+  const url = `http://localhost:3000/user/voting-page/${code}`;
   useEffect(() => {
     fetch(url)
-      .then((response) => {
+      .then((response): Promise<Poll> => {
         if (!response.ok) {
           throw new Error('the response contains an error');
         }
@@ -90,7 +90,7 @@ function VotingPage() {
 
   // TODO Create Submit Button and redirect to Results / Graphs
   //
-  const submitHandleButtonClick = async () => {
+  const submitHandleButtonClick = async (): Promise<void> => {
     try {
       const updatedPollTopics = pollTopics.map((poll, index) => {
         return (poll.votes = votes[index]);

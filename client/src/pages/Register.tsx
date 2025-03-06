@@ -4,14 +4,14 @@ import './Register.css';
 import { useNavigate } from 'react-router-dom';
 
 function Register() {
-  // declare navigate to change webaddresses
+  // declare navigate to change web addresses
   const navigate = useNavigate();
 
   // setting the email/passRefs as useRef.
-  const usernameRef = useRef<HTMLInputElement>(null);
-  const passwordRef = useRef<HTMLInputElement>(null);
+  const usernameRef = useRef<HTMLInputElement>(null!);
+  const passwordRef = useRef<HTMLInputElement>(null!);
 
-  async function regRequest() {
+  async function regRequest(): Promise<void> {
     if (!usernameRef.current || !passwordRef.current) {
       console.error("Username or password input is not available.");
       return;
@@ -56,7 +56,7 @@ function Register() {
         <input type='password' ref={passwordRef} />
       </div>
       <div className='card'>
-        {/* onclick, this should update the refsand  */}
+        {/* onclick, this should update the refs  */}
         <button onClick={regRequest}>Sign Up</button>
       </div>
     </>

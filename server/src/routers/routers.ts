@@ -24,11 +24,11 @@ router.post('/create-poll', pollController.createPoll
   // , (req: Request, res: Response) => {return res.status(200).send(res.locals.code)}
 );
 
-router.get('/pastpolls:username', pollController.pastPolls
+router.get('/pastpolls/:username', pollController.pastPolls
   // , (req: Request, res: Response) => {return res.status(200).send(res.locals.polls)}
 );
 
-router.get('/voting-page:code', pollController.votingPage
+router.get('/voting-page/:code', pollController.votingPage
   // , (req: Request, res: Response) => {return res.status(200).send(res.locals.poll)}
 );
 
@@ -36,7 +36,7 @@ router.patch('/updated-votes',pollController.updatedVotes
   // ,(req: Request, res: Response) => {return res.status(200).send('The votes have been updated')}
 )
 
-router.get('/results:code', pollController.getResults
+router.get('/results/:code', pollController.getResults
   // , (req: Request, res: Response) => {return res.status(200).send(res.locals.data)}
 )
 

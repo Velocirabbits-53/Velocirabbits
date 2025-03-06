@@ -20,24 +20,10 @@ function Confirmation() {
   // TODO Create where users click Vote Now
   // function sends the user's response to the server when they click the button (Create Poll)
   // create a new poll record in mongoose w/ fetch post req
-  const voteNowHandleButtonClick =
-    // async
-    () => {
-      // try {
-      //   const response = await fetch('/', {
-      //     method: 'GET',
-      //   });
-
-      //   if (response.ok) {
+  const voteNowHandleButtonClick = (): void => {
       navigate('/voting-page', {
         state: { username: `${username}`, code: `${code}` },
       });
-      //   } else {
-      //     console.error('Failed to get the requested poll');
-      //   }
-      // } catch (error) {
-      //   console.error('Error:', error);
-      // }
     };
 
   return (

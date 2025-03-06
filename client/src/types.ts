@@ -5,6 +5,8 @@ export interface PollTopic {
 export interface Poll {
   pollName: string;
   pollTopics: PollTopic[];
+  code: string;
+  createdBy: string;
 }
 export interface LocationState {
   username: string;
