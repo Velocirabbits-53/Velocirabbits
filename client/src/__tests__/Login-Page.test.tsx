@@ -1,8 +1,8 @@
 import React from "react";
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom'
-import "../pages/Login-Page.tsx"
 import { MemoryRouter } from "react-router-dom"; 
+import "../pages/Login-Page.tsx"
 import Login from "../pages/Login-Page";
 
 test('renders login page without crashing', () => {
@@ -14,4 +14,4 @@ test('renders login page without crashing', () => {
     );
     
     expect(screen.getByText(/Log In/i)).toBeInTheDocument();
-  });
+});
