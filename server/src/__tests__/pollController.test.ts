@@ -2,6 +2,8 @@ import { Request, Response, NextFunction } from 'express';
 import { pollController } from '../controllers/pollController';
 import { Poll } from '../models/users';
 import crypto from 'crypto';
+import { PollParam } from '../types';
+
 
 jest.mock('../models/users');
 jest.mock('crypto');
@@ -12,7 +14,9 @@ describe('pollController', () => {
   let next: NextFunction;
 
   beforeEach(() => {
-    req = {};
+    req = {
+      params: { username: 'testUser', code: 'testCode' } as PollParam,
+    } as Partial<Request<PollParam>>;
     res = {
       locals: {},
       status: jest.fn().mockReturnThis(),
@@ -30,7 +34,7 @@ describe('pollController', () => {
       req.body = { code: 'testCode' };
       (Poll.findOne as jest.Mock).mockResolvedValue({});
 
-      await pollController.dashboardVoteNow(req as Request, res as Response, next);
+      await pollController.dashboardVoteNow(req as Request<PollParam>, res as Response, next);
 
       expect(Poll.findOne).toHaveBeenCalledWith({ code: 'testCode' });
       expect(next).toHaveBeenCalled();
@@ -40,7 +44,7 @@ describe('pollController', () => {
       req.body = { code: 'testCode' };
       (Poll.findOne as jest.Mock).mockResolvedValue(null);
 
-      await pollController.dashboardVoteNow(req as Request, res as Response, next);
+      await pollController.dashboardVoteNow(req as Request<PollParam>, res as Response, next);
 
       expect(Poll.findOne).toHaveBeenCalledWith({ code: 'testCode' });
       expect(res.status).toHaveBeenCalledWith(400);
@@ -51,7 +55,7 @@ describe('pollController', () => {
       req.body = { code: 'testCode' };
       (Poll.findOne as jest.Mock).mockRejectedValue(new Error('Test error'));
 
-      await pollController.dashboardVoteNow(req as Request, res as Response, next);
+      await pollController.dashboardVoteNow(req as Request<PollParam>, res as Response, next);
 
       expect(next).toHaveBeenCalledWith({
         log: 'You are receiving an error from the pollController.dashboardVoteNow',
@@ -73,7 +77,7 @@ describe('pollController', () => {
       // Mock Poll.create to resolve successfully
       (Poll.create as jest.Mock).mockResolvedValue({});
   
-      await pollController.createPoll(req as Request, res as Response, next);
+      await pollController.createPoll(req as Request<PollParam>, res as Response, next);
   
       // Check that Poll.create was called with the correct arguments
       expect(Poll.create).toHaveBeenCalledWith({
@@ -83,7 +87,7 @@ describe('pollController', () => {
         createdBy: 'testUser',
       });
       // Check that res.locals.code was set correctly
-      expect(res.locals.code).toBe(Buffer.from('testCode').toString('hex').toUpperCase());
+      expect(res.locals!.code).toBe(Buffer.from('testCode').toString('hex').toUpperCase());
       // Check that next was called
       expect(next).toHaveBeenCalled();
     });
@@ -92,7 +96,7 @@ describe('pollController', () => {
       // Mock Poll.findOne to throw an error
       (Poll.findOne as jest.Mock).mockRejectedValue(new Error('Test error'));
   
-      await pollController.createPoll(req as Request, res as Response, next);
+      await pollController.createPoll(req as Request<PollParam>, res as Response, next);
   
       // Check that next was called with the correct error object
       expect(next).toHaveBeenCalledWith({
@@ -108,10 +112,10 @@ describe('pollController', () => {
       req.params = { username: 'testUser' };
       (Poll.find as jest.Mock).mockResolvedValue(['poll1', 'poll2']);
 
-      await pollController.pastPolls(req as Request, res as Response, next);
+      await pollController.pastPolls(req as Request<PollParam>, res as Response, next);
 
       expect(Poll.find).toHaveBeenCalledWith({ createdBy: 'testUser' });
-      expect(res.locals.polls).toEqual(['poll1', 'poll2']);
+      expect(res.locals!.polls).toEqual(['poll1', 'poll2']);
       expect(next).toHaveBeenCalled();
     });
   });
@@ -121,10 +125,10 @@ describe('pollController', () => {
       req.params = { code: 'testCode' };
       (Poll.findOne as jest.Mock).mockResolvedValue({});
 
-      await pollController.votingPage(req as Request, res as Response, next);
+      await pollController.votingPage(req as Request<PollParam>, res as Response, next);
 
       expect(Poll.findOne).toHaveBeenCalledWith({ code: 'testCode' });
-      expect(res.locals.poll).toEqual({});
+      expect(res.locals!.poll).toEqual({});
       expect(next).toHaveBeenCalled();
     });
 
@@ -132,7 +136,7 @@ describe('pollController', () => {
       req.params = { code: 'testCode' };
       (Poll.findOne as jest.Mock).mockResolvedValue(null);
 
-      await pollController.votingPage(req as Request, res as Response, next);
+      await pollController.votingPage(req as Request<PollParam>, res as Response, next);
 
       expect(Poll.findOne).toHaveBeenCalledWith({ code: 'testCode' });
       expect(res.status).toHaveBeenCalledWith(400);
@@ -143,7 +147,7 @@ describe('pollController', () => {
       req.params = { code: 'testCode' };
       (Poll.findOne as jest.Mock).mockRejectedValue(new Error('Test error'));
 
-      await pollController.votingPage(req as Request, res as Response, next);
+      await pollController.votingPage(req as Request<PollParam>, res as Response, next);
 
       expect(next).toHaveBeenCalledWith({
         log: 'You are receiving an error from the pollController.votingPage',
@@ -160,7 +164,7 @@ describe('pollController', () => {
       (Poll.findOne as jest.Mock).mockResolvedValue(poll);
       (Poll.findOneAndUpdate as jest.Mock).mockResolvedValue({});
 
-      await pollController.updatedVotes(req as Request, res as Response, next);
+      await pollController.updatedVotes(req as Request<PollParam>, res as Response, next);
 
       expect(Poll.findOne).toHaveBeenCalledWith({ code: 'testCode' });
       expect(Poll.findOneAndUpdate).toHaveBeenCalledWith(
@@ -174,7 +178,7 @@ describe('pollController', () => {
       req.body = { code: 'testCode', votes: [1, 2] };
       (Poll.findOne as jest.Mock).mockRejectedValue(new Error('Test error'));
 
-      await pollController.updatedVotes(req as Request, res as Response, next);
+      await pollController.updatedVotes(req as Request<PollParam>, res as Response, next);
 
       expect(next).toHaveBeenCalledWith({
         log: 'Error finding poll in pollController.updatedVotes',
@@ -189,10 +193,10 @@ describe('pollController', () => {
       req.params = { code: 'testCode' };
       (Poll.findOne as jest.Mock).mockResolvedValue('pollData');
 
-      await pollController.getResults(req as Request, res as Response, next);
+      await pollController.getResults(req as Request<PollParam>, res as Response, next);
 
       expect(Poll.findOne).toHaveBeenCalledWith({ code: 'testCode' });
-      expect(res.locals.data).toBe('pollData');
+      expect(res.locals!.data).toBe('pollData');
       expect(next).toHaveBeenCalled();
     });
   });
