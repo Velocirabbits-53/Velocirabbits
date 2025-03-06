@@ -1,7 +1,7 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
-import './index.css';
-import App from './App.js';
+import '../public/styles/index.css';
+import App from './App';
 
 // createRoot(document.getElementById('root')).render(
 //   <StrictMode>
@@ -9,10 +9,10 @@ import App from './App.js';
 //   </StrictMode>
 // );
 
-const rootElement = document.getElementById("root");
+const rootElement = document.getElementById('root');
 
 if (!rootElement) {
-  throw new Error("Root element not found");
+  throw new Error('Root element not found');
 }
 
 const root = createRoot(rootElement as HTMLElement);

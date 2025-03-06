@@ -7,8 +7,8 @@ const mongoURI = process.env.MONGO_URITWO;
 
 if (mongoURI) {
   mongoose.connect(mongoURI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
+    // useNewUrlParser: true,
+    // useUnifiedTopology: true,
   } as mongoose.ConnectOptions);
 }
 

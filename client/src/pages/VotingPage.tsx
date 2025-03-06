@@ -1,5 +1,5 @@
 //* Voting page after user clicked 'Vote Now'
-import './style.css';
+import '../../public/styles/Style.css';
 import React, { use, useEffect, useState } from 'react';
 // allows for user to be redirect to another page (back to Dashboard)
 import { useNavigate, useLocation } from 'react-router-dom';
@@ -79,14 +79,14 @@ function VotingPage() {
       setVotesRemaining(updatedVotesRemaining);
       // console.log('The value of the remaining votes is', updatedVotesRemaining)
     } else {
-      console.error('Delete vote failed');
+      // console.error('Delete vote failed');
       alert(
         "Couldn't delete vote" +
           'Check votes remaining is 6, or if votes for a topic is 0'
       );
     }
   };
-  console.log('The value of pollTopics is', pollTopics);
+  // console.log('The value of pollTopics is', pollTopics);
 
   // TODO Create Submit Button and redirect to Results / Graphs
   //
@@ -95,7 +95,7 @@ function VotingPage() {
       const updatedPollTopics = pollTopics.map((poll, index) => {
         return (poll.votes = votes[index]);
       });
-      console.log('The value of poll.votes is', updatedPollTopics);
+      // console.log('The value of poll.votes is', updatedPollTopics);
       const response = await fetch('http://localhost:3000/user/updated-votes', {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
@@ -113,7 +113,7 @@ function VotingPage() {
         });
       } else {
         const error = await response.json();
-        console.error('Failed to update votes', error);
+        // console.error('Failed to update votes', error);
         alert(
           'Updated votes failed' +
             (error.message || 'Failed to update vote information.')

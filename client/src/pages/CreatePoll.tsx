@@ -10,12 +10,9 @@ function CreatePoll() {
   const [pollName, setPollName] = useState<string>('');
   // setting useState's initial val to be an arr of 3 objs
   const [pollTopics, setPollTopics] = useState<PollTopic[]>([
-    { pollTopic: '',
-      votes: 0 },
-    { pollTopic: '',
-      votes: 0 },
-    { pollTopic: '',
-      votes: 0 },
+    { pollTopic: '', votes: 0 },
+    { pollTopic: '', votes: 0 },
+    { pollTopic: '', votes: 0 },
   ]);
 
   // console.log('the value of pollName is ', pollName)
@@ -41,6 +38,23 @@ function CreatePoll() {
   // function sends the user's response to the server when they click the button (Create Poll)
   // create a new poll record in mongoose w/ fetch post req
   const createPollHandleButtonClick = async (): Promise<void> => {
+    // failing tests to prevent empty poll names from being submitted
+    if (!pollName.trim()) {
+      console.error('Poll name cannot be empty');
+      alert('Please enter a poll name before submitting.');
+      return;
+    }
+
+    // this thing is also failing tests when i have no topics, so this fixes that
+    const hasValidTopic = pollTopics.some(
+      (topic) => topic.pollTopic.trim() !== ''
+    );
+    if (!hasValidTopic) {
+      console.error('At least one topic must have a name');
+      alert('Please enter at least one topic before submitting.');
+      return;
+    }
+
     try {
       const response = await fetch('http://localhost:3000/user/create-poll', {
         // how client sends req to server
@@ -120,7 +134,7 @@ function CreatePoll() {
       {pollTopics.map((topic, index) => {
         return (
           // Adding the index to the div map, and not the inputs, since each input belongs to a different div.
-          <div key={index}> 
+          <div key={index}>
             {/* The text box for user input */}
             <input
               // key={index}
