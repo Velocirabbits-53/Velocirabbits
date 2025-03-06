@@ -166,7 +166,7 @@ describe('Checking the Registration component to see...', () => {
       
     // Make an error interceptor to prevent a console error
     const consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
-    
+
     // Get username & password fields
     const usernameInput = screen.getByLabelText(/Username/i) as HTMLInputElement;
     const passwordInput = screen.getByLabelText(/Password/i) as HTMLInputElement;
@@ -197,5 +197,35 @@ describe('Checking the Registration component to see...', () => {
     // Reset the console to remove the error
     consoleErrorSpy.mockRestore();
   });
+
+  test('...if the registration handles network failures.', async () => {
+    // Mock fetch to throw a network error
+    global.fetch = jest.fn(() => Promise.reject(new Error('Network failure'))) as jest.Mock;
   
+    // Mock alert and console.error to verify calls
+    jest.spyOn(window, 'alert').mockImplementation(() => {});
+    const consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
+  
+    const usernameInput = screen.getByLabelText(/Username/i) as HTMLInputElement;
+    const passwordInput = screen.getByLabelText(/Password/i) as HTMLInputElement;
+  
+    fireEvent.change(usernameInput, { target: { value: 'testUser' } });
+    fireEvent.change(passwordInput, { target: { value: 'securePass123' } });
+  
+    fireEvent.click(screen.getByText(/Sign Up/i));
+  
+    // Ensure the correct alert message is displayed
+    await waitFor(() =>
+      expect(window.alert).toHaveBeenCalledWith('Network error: Please try again later.')
+    );
+  
+    // Ensure the correct error is logged
+    expect(consoleErrorSpy).toHaveBeenCalledWith('Network error:', expect.any(Error));
+  
+    // Ensure navigation was NOT triggered
+    expect(mockNavigate).not.toHaveBeenCalled();
+  
+    // Restore console.error after the test
+    consoleErrorSpy.mockRestore();
+  });
 });
