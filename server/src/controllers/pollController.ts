@@ -45,18 +45,24 @@ pollController.createPoll = async (req, res, next) => {
     const generateUniqueCode = async () => {
       let code;
       let exists = true;
+      //To ensure that each poll has a unique code. 
       while (exists) {
         code = crypto.randomBytes(3).toString('hex').toUpperCase();
-        if ((await Poll.findOne({ code }) !== null )) {
-          //TODO for rachel- is await in a function ok? Sometimes await gets mad if you try to do something too soon after setting a val equal to whatever comes back from the await function, so is this just fine? I'd think it wouldn't work but idk chatgpt said it's ok 
-          return exists = true
-        } else { 
-          return exists = false
-        }
-        // ^ THIS IS AN "UGLY" WAY OF WRITING exist = (await Poll.findOne({ code }) !== null)
+        //Checks if a poll with the generated code already exists in the database. If a poll with the code is found, exists is set to true, otherwise to false.
+        exists = await Poll.findOne({code}) !==null;
       }
       return code;
     };
+    //     if ((await Poll.findOne({ code }) !== null )) {
+    //       //TODO for rachel- is await in a function ok? Sometimes await gets mad if you try to do something too soon after setting a val equal to whatever comes back from the await function, so is this just fine? I'd think it wouldn't work but idk chatgpt said it's ok 
+    //       return exists = true
+    //     } else { 
+    //       return exists = false
+    //     }
+    //     // ^ THIS IS AN "UGLY" WAY OF WRITING exist = (await Poll.findOne({ code }) !== null)
+    //   }
+    //   return code;
+    // };
     const code = await generateUniqueCode();
     const pollTopicsWithVotes = pollTopics.map((topic: {}) => ({ // topic is an object?
       // ? why were the "topic"s defined as objects?? it's kinda fine but why- we had to define topic as an object inline because of it

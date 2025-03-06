@@ -65,7 +65,6 @@ function Login() {
         //add label for password via htmlFor attribute
         <label className='label' htmlFor = 'password'>Password</label>
         <input type='password' id = 'password' ref={passwordRef} />
-
       </div>
       <div className="card">
         {/* onclick, this should update the refs  */}

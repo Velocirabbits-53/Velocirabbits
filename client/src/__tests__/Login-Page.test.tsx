@@ -67,4 +67,3 @@ describe('Login Page', () => {
     expect(mockedNavigate).toHaveBeenCalledWith('/register');
   });
 });
-

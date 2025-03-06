@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../App.css';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { LocationState, Poll } from '../types';
@@ -10,17 +10,25 @@ const PastPolls = () => {
   const { username } = data;
 
   const [polls, setPolls] = useState<Poll[]>([]);
+  //add a error usestate
+  const[error, setError] = useState<string | null>(null);
 
   const getPastPolls = async (): Promise<void> => {
     try {
       const response = await fetch(
         `http://localhost:3000/user/pastpolls/${username}`
       );
+      //add a error handler if no response
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
       const data: Poll[] = await response.json();
       console.log(data);
       setPolls(data);
+      setError(null);
     } catch (error) {
       console.error('Error fetching past polls:', error);
+      setError('Error fetching past polls');
     }
   };
 
@@ -32,6 +40,8 @@ const PastPolls = () => {
     <div>
       <h1>Past Polls:</h1>
       <button onClick={getPastPolls}>Past Polls</button>
+      {/* display the error if occur */}
+      {error && <p>{error}</p>}
       {polls.map((poll, index) => (
         <div key={index}>
           <h2>{poll.pollName}</h2>
