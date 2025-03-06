@@ -9,7 +9,6 @@ import { LocationState } from '../types';
 function Login() {
   // declare navigate to change web addresses
   const navigate = useNavigate();
-
   // setting the username/passRefs as useRef.
   const usernameRef = useRef<HTMLInputElement>(null!);
   const passwordRef = useRef<HTMLInputElement>(null!);
@@ -56,13 +55,15 @@ function Login() {
     <>
       <h1>Log In</h1>
       <div className='inputs'>
-        <label className='label'>Username</label>
-        <input type='text' ref={usernameRef} />
+        //add label for username via htmlFor attribute
+        <label className='label' htmlFor = 'username'>Username</label>
+        <input type='text' id = 'username' ref={usernameRef} />
       </div>
       <div className='inputs'>
         {' '}
-        <label className='label'>Password</label>
-        <input type='password' ref={passwordRef} />
+        //add label for password via htmlFor attribute
+        <label className='label' htmlFor = 'password'>Password</label>
+        <input type='password' id = 'password' ref={passwordRef} />
       </div>
       <div className='card'>
         {/* onclick, this should update the refs  */}
