@@ -254,7 +254,7 @@ describe('Checking the Voting Page component to see...', () => {
     expect(screen.getByText(/Submit!/i)).toBeInTheDocument();
   });
 
-  xtest('...if clicking "Submit" sends the correct vote data.', async () => {
+  test('...if clicking "Submit" sends the correct vote data.', async () => {
     // Make a fake submit
     global.fetch = jest.fn(() =>
       Promise.resolve({
@@ -294,7 +294,7 @@ describe('Checking the Voting Page component to see...', () => {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          votes: [2, 1, 0, 0],
+          votes: [3, 2, 0, 0],
           code: '12345',
         }),
       })
