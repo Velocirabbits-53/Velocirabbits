@@ -188,7 +188,7 @@ describe('Checking the Registration component to see...', () => {
     fireEvent.change(passwordInput, { target: { value: 'securePass123' } });
     fireEvent.click(screen.getByText(/Sign Up/i));
   
-     // Expect the glabal fetch not to trigger
+     // Expect the global fetch not to trigger
     expect(global.fetch).not.toHaveBeenCalled();
     
     // Expect navigation was not triggered
