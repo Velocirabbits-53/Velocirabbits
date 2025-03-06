@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import '../App.css';
+import '../../public/styles/App.css';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { LocationState, Poll } from '../types';
 

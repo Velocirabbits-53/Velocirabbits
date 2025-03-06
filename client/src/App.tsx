@@ -1,4 +1,4 @@
-import './App.css';
+import '../public/styles/App.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Dashboard from './pages/Dashboard';
 import CreatePoll from './pages/CreatePoll';

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import '../App.css';
+import '../../public/styles/App.css';
 import { useNavigate, useLocation } from 'react-router-dom';
 import Plot from 'react-plotly.js';
 import { Poll, PollTopic, LocationState } from '../types';
