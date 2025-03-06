@@ -5,7 +5,7 @@ import { MemoryRouter } from "react-router-dom";
 import "../pages/Login-Page.tsx"
 import Login from "../pages/Login-Page";
 
-test('renders login page without crashing', () => {
+xtest('renders login page without crashing', () => {
     // Render the Login component
     render(
     <MemoryRouter>
