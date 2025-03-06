@@ -1,8 +1,8 @@
 //Boilerplate imports
 import React, { useRef, useState } from "react";
-import "../App.css";
+import "../../public/styles/App.css";
 import { useNavigate } from "react-router-dom";
-import "./Login-Page.css";
+import "../../public/styles/Login-Page.css";
 import { LocationState } from "../types";
 
 function Login() {
@@ -56,13 +56,13 @@ function Login() {
     <>
       <h1>Log In</h1>
       <div className='inputs'>
-        //add label for username via htmlFor attribute
+        {/* //add label for username via htmlFor attribute */}
         <label className='label' htmlFor = 'username'>Username</label>
         <input type='text' id = 'username' ref={usernameRef} />
       </div>
       <div className='inputs'>
         {' '}
-        //add label for password via htmlFor attribute
+        {/* //add label for password via htmlFor attribute */}
         <label className='label' htmlFor = 'password'>Password</label>
         <input type='password' id = 'password' ref={passwordRef} />
       </div>

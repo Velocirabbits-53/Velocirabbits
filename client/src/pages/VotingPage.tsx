@@ -1,5 +1,5 @@
 //* Voting page after user clicked 'Vote Now'
-import './style.css';
+import '../../public/styles/Style.css';
 import React, { use, useEffect, useState } from 'react';
 // allows for user to be redirect to another page (back to Dashboard)
 import { useNavigate, useLocation } from 'react-router-dom';
