@@ -126,9 +126,7 @@ function CreatePoll() {
         className='text-input'
       />
       <div>
-        <p style={{ display: 'inline' }}>Name of Topics: </p>
-        {/* onClick handler calls addTopicsHandleButtonClick*/}
-        <button onClick={addTopicsHandleButtonClick}>+</button>
+        <button onClick={addTopicsHandleButtonClick}>Add a Topic</button>
       </div>
       {/*  iterate over pollTopics (state) and render an input tag for each poll topic. used map function to transform pollTopics into input tags for each poll topic */}
       {pollTopics.map((topic, index) => {

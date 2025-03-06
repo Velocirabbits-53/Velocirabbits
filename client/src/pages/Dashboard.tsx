@@ -17,17 +17,9 @@ function Dashboard() {
   // deconstructed data
   const { username } = data;
 
-  console.log('username:', data.username);
+  // console.log('username:', data.username);
 
-  // load user's name from login
-  // useEffect(() => {
-  //   const storedName = localStorage.getItem('userName');
-  //   if (storedName) {
-  //     setUserName(storedName); // Set the user's name
-  //   }
-  // }, []); // Runs once when the component loads
-
-  // TODO Create New Poll Button
+  // // TODO Create New Poll Button
   const newPollHandleButtonClick = async (): Promise<void> => {
     // redirect user to createPoll.jsx
     navigate('/create-poll', {
@@ -35,7 +27,7 @@ function Dashboard() {
     });
   };
 
-  // TODO Create Vote Now Button
+  // // TODO Create Vote Now Button
   const voteNowHandleButtonClick = async (): Promise<void> => {
     // redirect user to VotingPage.jsx
     try {
@@ -64,7 +56,7 @@ function Dashboard() {
     }
   };
 
-  // TODO Create View Past Polls Button
+  // // TODO Create View Past Polls Button
   const viewPastPollsHandleButtonClick = async (): Promise<void> => {
     // redirect user to past polls page
     navigate('/pastpolls', { state: { username: `${username}` } });
@@ -73,13 +65,10 @@ function Dashboard() {
   // everything in here gets rendered to the browser
   return (
     <div>
-      <h1> DASHBOARD</h1>
       <h2>Hello, {username}</h2>
-      {/* onClick handler calls newPollHandleButtonClick */}
       <button onClick={newPollHandleButtonClick}>Create a New Poll</button>
       <p> Vote on a Poll</p>
       <div>
-        {/* The text box for user code name input */}
         <input
           type='text'
           value={codeName}
@@ -87,11 +76,19 @@ function Dashboard() {
           placeholder='Enter Code'
           className='text-input'
         />
-        {/* onClick handler calls voteNowHandleButtonClick */}
-        <button onClick={voteNowHandleButtonClick}>Vote Now!</button>
+        <button 
+          onClick={voteNowHandleButtonClick} 
+          disabled={!codeName.trim()} // Disable if input is empty
+          style={{
+            backgroundColor: codeName.trim() ? '#395B64' : 'gray', // Change color when disabled
+            color: 'white',
+            cursor: codeName.trim() ? 'pointer' : 'not-allowed',
+          }}
+        >
+          Vote Now!
+        </button>
       </div>
       <div>
-        {/* onClick handler calls viewPastPollsHandleButtonClick */}
         <button onClick={viewPastPollsHandleButtonClick}>
           View Past Polls
         </button>
