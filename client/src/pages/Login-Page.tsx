@@ -1,5 +1,5 @@
 //Boilerplate imports
-import { useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import '../App.css';
 import { useNavigate } from 'react-router-dom';
 import './Login-Page.css';
